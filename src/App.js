@@ -1,28 +1,40 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import { BrowserRouter, Link, Route, Switch } from "react-router-dom";
+import Categories from "./comoponents/categories";
+import AddCategory from "./comoponents/CategoriesNew";
+import Product from "./comoponents/products/products";
+import ProductNew from "./comoponents/products/Productnew";
+import CategoryShow from "./comoponents/CateegoryShow";
+
+//import './App.css';
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
+	constructor(props) {
+		super(props);
+		this.state = {};
+	}
+
+	render() {
+		return (
+			<BrowserRouter>
+				<div className="App">
+					<h1>welcome to Amazon</h1>
+					<Link to="/categories"> Categories</Link>
+					{"|"}
+					<Link to="/products">Products</Link>
+					{"|"}
+
+					<Switch>
+						<Route path="/categories" component={Categories} exact={true} />
+						<Route path="/categories/add" component={AddCategory} />
+						<Route path="/categories/:id" component={CategoryShow} />
+						<Route path="/products" component={Product} exact={true} />
+						<Route path="/products/add" component={ProductNew} />
+					</Switch>
+				</div>
+			</BrowserRouter>
+		);
+	}
 }
 
 export default App;
