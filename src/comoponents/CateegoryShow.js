@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "../config/config";
+import { Link } from "react-router-dom";
 class CategoryShow extends Component {
 	constructor(props) {
 		super(props);
@@ -23,6 +24,10 @@ class CategoryShow extends Component {
 						return <li key={category._id}>{category.name}</li>;
 					})}
 				</ul>
+				<Link to="/categories/edit">Edit</Link>
+				{"|"}
+
+				<Link to="/categories">Back</Link>
 			</div>
 		);
 	}

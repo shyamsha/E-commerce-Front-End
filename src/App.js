@@ -5,6 +5,7 @@ import AddCategory from "./comoponents/CategoriesNew";
 import Product from "./comoponents/products/products";
 import ProductNew from "./comoponents/products/Productnew";
 import CategoryShow from "./comoponents/CateegoryShow";
+import CategoryEdit from "./comoponents/CategoryEdit";
 
 //import './App.css';
 
@@ -27,7 +28,12 @@ class App extends Component {
 					<Switch>
 						<Route path="/categories" component={Categories} exact={true} />
 						<Route path="/categories/add" component={AddCategory} />
-						<Route path="/categories/:id" component={CategoryShow} />
+						<Route
+							path="/categories/id"
+							component={CategoryShow}
+							exact={true}
+						/>
+						<Route path="/categories/edit" component={CategoryEdit} />
 						<Route path="/products" component={Product} exact={true} />
 						<Route path="/products/add" component={ProductNew} />
 					</Switch>

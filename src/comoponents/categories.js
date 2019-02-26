@@ -23,7 +23,7 @@ class Categories extends Component {
 					{this.state.categories.map(category => {
 						return (
 							<li key={category._id}>
-								<Link to="/categories/:id">{category.name}</Link>
+								<Link to="/categories/id">{category.name}</Link>
 							</li>
 						);
 					})}
