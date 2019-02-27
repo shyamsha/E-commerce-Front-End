@@ -29,11 +29,11 @@ class App extends Component {
 						<Route path="/categories" component={Categories} exact={true} />
 						<Route path="/categories/add" component={AddCategory} />
 						<Route
-							path="/categories/id"
+							path="/categories/:id"
 							component={CategoryShow}
 							exact={true}
 						/>
-						<Route path="/categories/edit" component={CategoryEdit} />
+						<Route path="/categories/edit/:id" component={CategoryEdit} />
 						<Route path="/products" component={Product} exact={true} />
 						<Route path="/products/add" component={ProductNew} />
 					</Switch>

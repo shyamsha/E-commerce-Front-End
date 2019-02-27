@@ -3,10 +3,11 @@ import { Link } from "react-router-dom";
 import axios from "../config/config";
 //import { Redirect } from "react-router-dom";
 class AddCategory extends Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 		this.state = {
-			name: ""
+			name: props.name ? props.name : "",
+			isNew: false
 		};
 	}
 	handleName = e => {
@@ -20,21 +21,23 @@ class AddCategory extends Component {
 		const formData = {
 			name: this.state.name
 		};
-		axios
-			.post("/categories", formData)
-			.then(responce => {
-				this.props.history.push("/categories");
-			})
-			.catch(err => {
-				console.log(err);
-			});
-		this.setState(() => ({ name: "" }));
+		if (this.state.isNew) {
+			axios
+				.post("/categories", formData)
+				.then(responce => {
+					this.props.history.push("/categories");
+				})
+				.catch(err => {
+					console.log(err);
+				});
+			this.setState(() => ({ name: "" }));
+		}
+		this.props.handleSubmit(formData);
 	};
 
 	render() {
 		return (
 			<div>
-				<h5>Add Category Here</h5>
 				<form onSubmit={this.handleSubmit}>
 					<label>
 						Name Of Category:

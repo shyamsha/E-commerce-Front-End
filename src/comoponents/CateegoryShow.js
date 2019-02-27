@@ -5,28 +5,42 @@ class CategoryShow extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			categories: []
+			categories: {}
 		};
 	}
 	componentDidMount() {
-		axios.get("/categories").then(response => {
+		const id = this.props.match.params.id;
+		axios.get(`/categories/${id}`).then(response => {
 			const categories = response.data;
 
 			this.setState(() => ({ categories: categories }));
 		});
 	}
+	handleDelete = () => {
+		const alert = window.confirm("Are You Sure");
+		const id = this.props.match.params.id;
+		if (alert) {
+			axios
+				.delete(`categories/${id}`)
+				.then(response => {
+					this.props.history.push("/categories"); // this anthor way of redireact
+				})
+				.catch(err => {
+					console.log(err);
+				});
+		}
+	};
 	render() {
 		return (
 			<div>
 				<h5>category show</h5>
 				<ul>
-					{this.state.categories.map(category => {
-						return <li key={category._id}>{category.name}</li>;
-					})}
+					<li>{this.state.categories.name}</li>
 				</ul>
-				<Link to="/categories/edit">Edit</Link>
+				<Link to={`/categories/edit/${this.props.match.params.id}`}>Edit</Link>
 				{"|"}
-
+				<button onClick={this.handleDelete}>Delete</button>
+				{"|"}
 				<Link to="/categories">Back</Link>
 			</div>
 		);
