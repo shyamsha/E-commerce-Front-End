@@ -11,14 +11,13 @@ class Categories extends Component {
 	componentDidMount() {
 		axios.get("/categories").then(response => {
 			const categories = response.data;
-
 			this.setState(() => ({ categories: categories }));
 		});
 	}
 	render() {
 		return (
 			<div>
-				<h5> Categories - {this.state.categories.length}</h5>
+				{/* <h5> Categories - {this.state.categories.length}</h5> */}
 				<ul>
 					{this.state.categories.map(category => {
 						return (
@@ -28,7 +27,7 @@ class Categories extends Component {
 						);
 					})}
 				</ul>
-				<Link to="Categories/add">Add Category</Link>
+				<Link to="Category/add">Add Category</Link>
 			</div>
 		);
 	}

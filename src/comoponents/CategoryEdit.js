@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import axios from "../config/config";
-import AddCategory from "./CategoriesNew";
+import CategoryForm from "./CategoriesForm";
 class CategoryEdit extends Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 		this.state = {
-			categories: {},
+			category: {},
 			isLoad: false
 		};
 	}
@@ -13,9 +13,8 @@ class CategoryEdit extends Component {
 		axios
 			.get(`categories/${this.props.match.params.id}`)
 			.then(response => {
-				const category = response.data;
-
-				this.setState(() => ({ categories: category, isLoad: true }));
+				const category = response.data.category;
+				this.setState(() => ({ category: category, isLoad: true }));
 			})
 			.catch(err => {
 				console.log(err);
@@ -23,7 +22,7 @@ class CategoryEdit extends Component {
 	}
 	handleSubmit = formData => {
 		axios
-			.put(`categories/${this.state.categories._id}`, formData)
+			.put(`categories/${this.state.category._id}`, formData)
 			.then(response => {
 				this.props.history.push("/categories");
 			})
@@ -35,8 +34,8 @@ class CategoryEdit extends Component {
 		return (
 			<div>
 				{this.state.isLoad && (
-					<AddCategory
-						name={this.state.categories.name}
+					<CategoryForm
+						name={this.state.category.name}
 						handleSubmit={this.handleSubmit}
 					/>
 				)}

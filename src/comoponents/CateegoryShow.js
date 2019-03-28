@@ -5,21 +5,24 @@ class CategoryShow extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			categories: {}
+			category: {},
+			products: []
 		};
 	}
+
 	componentDidMount() {
 		const id = this.props.match.params.id;
 		axios.get(`/categories/${id}`).then(response => {
-			const categories = response.data;
-
-			this.setState(() => ({ categories: categories }));
+			this.setState(() => ({
+				category: response.data.category,
+				products: response.data.products
+			}));
 		});
 	}
 	handleDelete = () => {
-		const alert = window.confirm("Are You Sure");
+		const confirm = window.confirm("Are You Sure");
 		const id = this.props.match.params.id;
-		if (alert) {
+		if (confirm) {
 			axios
 				.delete(`categories/${id}`)
 				.then(response => {
@@ -30,13 +33,29 @@ class CategoryShow extends Component {
 				});
 		}
 	};
+
 	render() {
 		return (
 			<div>
-				<h5>category show</h5>
-				<ul>
-					<li>{this.state.categories.name}</li>
-				</ul>
+				<h4>{this.state.category.name}</h4>
+				{this.state.products.map(product => {
+					return (
+						<div key={product._id}>
+							<h5>
+								<span>{product.name}</span>{" "}
+							</h5>
+							<br />
+							<img
+								src={product.imageUrl}
+								alt="productImg"
+								width="100"
+								hight="100"
+							/>
+							<br />
+							<p>price:{product.price}</p>
+						</div>
+					);
+				})}
 				<Link to={`/categories/edit/${this.props.match.params.id}`}>Edit</Link>
 				{"|"}
 				<button onClick={this.handleDelete}>Delete</button>

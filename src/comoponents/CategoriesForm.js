@@ -1,13 +1,11 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import axios from "../config/config";
-//import { Redirect } from "react-router-dom";
-class AddCategory extends Component {
+
+class CategoryForm extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			name: props.name ? props.name : "",
-			isNew: false
+			name: props.name ? props.name : ""
 		};
 	}
 	handleName = e => {
@@ -21,18 +19,8 @@ class AddCategory extends Component {
 		const formData = {
 			name: this.state.name
 		};
-		if (this.state.isNew) {
-			axios
-				.post("/categories", formData)
-				.then(responce => {
-					this.props.history.push("/categories");
-				})
-				.catch(err => {
-					console.log(err);
-				});
-			this.setState(() => ({ name: "" }));
-		}
 		this.props.handleSubmit(formData);
+		this.setState(() => ({ name: "" }));
 	};
 
 	render() {
@@ -48,7 +36,6 @@ class AddCategory extends Component {
 							onChange={this.handleName}
 						/>
 					</label>
-
 					<br />
 					<input type="submit" value="submit" />
 				</form>
@@ -58,4 +45,4 @@ class AddCategory extends Component {
 	}
 }
 
-export default AddCategory;
+export default CategoryForm;

@@ -23,13 +23,19 @@ class Product extends Component {
 					{this.state.products.map(product => {
 						return (
 							<li key={product._id}>
-								Name: {product.name} <br />
+								<Link to={`/product/${product._id}`}>{product.name}</Link>{" "}
 								<br />
+								<img
+									src={product.imageUrl}
+									alt="productImg"
+									width="100"
+									hight="100"
+								/>
 							</li>
 						);
 					})}
 				</ul>
-				<Link to="products/add">Add Product</Link>
+				<Link to="product/add">Add Product</Link>
 			</div>
 		);
 	}
