@@ -13,6 +13,7 @@ import ProductShow from "./comoponents/products/ProductShow";
 import NewCategory from "./comoponents/CategoryAdd";
 import Logout from "./comoponents/users/Logout";
 import Home from "./comoponents/Home/Home";
+import Notfound from "./comoponents/Home/NotFound";
 
 //import './App.css';
 
@@ -50,6 +51,7 @@ class App extends Component {
 						<Route path="/user/login" component={Login} />
 						<Route path="/user/logout" component={Logout} />
 						<Route path="/home" component={Home} />
+						<Route component={Notfound} />
 					</Switch>
 				</div>
 			</BrowserRouter>

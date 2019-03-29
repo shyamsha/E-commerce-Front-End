@@ -23,9 +23,11 @@ class ProductEdit extends Component {
 			});
 	}
 	handleSubmit = data => {
+		console.log(data);
 		axios
 			.put(`products/${this.props.match.params.id}`, data)
 			.then(response => {
+				console.log(response.data);
 				this.props.history.push("/products");
 			})
 			.catch(err => {
@@ -42,7 +44,7 @@ class ProductEdit extends Component {
 						description={this.state.product.description}
 						price={this.state.product.price}
 						stock={this.state.product.stock}
-						isCod={this.state.product.isCod}
+						isCod={this.state.product.isCod ? "true" : "false"}
 						category={this.state.product.category}
 						imageUrl={this.state.product.imageUrl}
 						handleSubmit={this.handleSubmit}

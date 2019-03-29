@@ -48,6 +48,7 @@ class ProductForm extends Component {
 	};
 	handleIsCod = e => {
 		e.persist();
+		console.log(e.target.value);
 		this.setState(() => ({ isCod: e.target.value }));
 	};
 	handleCategory = e => {
@@ -58,12 +59,14 @@ class ProductForm extends Component {
 	};
 	handleFile = e => {
 		e.persist();
-		const imag = e.target.files[0];
-		this.setState(() => ({ imageUrl: imag }));
+		const img = e.target.files[0];
+		this.setState(() => ({ imageUrl: img }));
 	};
 	handleSubmit = e => {
 		e.preventDefault();
 		//when we send the images with text  req.file has body send it img also text also like this way
+		// const img = new FormData();
+		// img.append("imageUrl", this.state.imageUrl);
 		const data = new FormData();
 		data.append("name", this.state.name);
 		data.append("description", this.state.description);
@@ -72,6 +75,17 @@ class ProductForm extends Component {
 		data.append("isCod", this.state.isCod);
 		data.append("category", this.state.category);
 		data.append("imageUrl", this.state.imageUrl);
+		console.log(data);
+		// const data = {
+		// 	name: this.state.name,
+		// 	description: this.state.description,
+		// 	price: this.state.price,
+		// 	stock: this.state.stock,
+		// 	isCod: this.state.isCod,
+		// 	category: this.state.category,
+		// 	imageUrl: this.state.imageUrl
+		// };
+
 		this.props.handleSubmit(data);
 		this.setState(() => ({
 			name: "",
@@ -131,17 +145,17 @@ class ProductForm extends Component {
 						<input
 							type="radio"
 							name="isCod"
-							value={true}
-							//value={this.state.isCod.checked}
+							value="true"
+							checked={this.state.isCod === "true"} //this anthor way of handling radio buttons
 							onChange={this.handleIsCod}
-							defaultChecked
+							//defaultChecked
 						/>
 						True
 						<input
 							type="radio"
 							name="isCod"
-							value={false}
-							//value={this.state.isCod.unchecked}
+							value="false"
+							checked={this.state.isCod === "false"}
 							onChange={this.handleIsCod}
 						/>
 						False
@@ -164,6 +178,7 @@ class ProductForm extends Component {
 							type="file"
 							name="imageUrl"
 							accept="image/*"
+							encType="multipart/form-data"
 							value={this.state.file}
 							onChange={this.handleFile}
 						/>
