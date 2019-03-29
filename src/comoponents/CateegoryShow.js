@@ -42,7 +42,7 @@ class CategoryShow extends Component {
 					return (
 						<div key={product._id}>
 							<h5>
-								<span>{product.name}</span>{" "}
+								<Link to={`/products/${product._id}`}>{product.name}</Link>{" "}
 							</h5>
 							<br />
 							<img

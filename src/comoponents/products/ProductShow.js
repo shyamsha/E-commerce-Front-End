@@ -33,10 +33,19 @@ class ProductShow extends Component {
 	render() {
 		return (
 			<div>
-				<h5>category show</h5>
-				<ul>
-					<li>{this.state.products.name}</li>
-				</ul>
+				<div>
+					<h5>{this.state.products.name}</h5>
+					<img
+						src={this.state.products.imageUrl}
+						alt="productImg"
+						width="100"
+						hight="100"
+					/>
+					<p>description:{this.state.products.description}</p>
+					<p>price -{this.state.products.price}</p>
+					<button>AddCart</button>
+				</div>
+				<hr />
 				<Link to={`/product/edit/${this.props.match.params.id}`}>Edit</Link>
 				{"|"}
 				<button onClick={this.handleDelete}>Delete</button>

@@ -75,7 +75,6 @@ class ProductForm extends Component {
 		data.append("isCod", this.state.isCod);
 		data.append("category", this.state.category);
 		data.append("imageUrl", this.state.imageUrl);
-		console.log(data);
 		// const data = {
 		// 	name: this.state.name,
 		// 	description: this.state.description,

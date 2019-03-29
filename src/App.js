@@ -36,7 +36,7 @@ class App extends Component {
 					<Link to="/user/logout">Logout</Link> |{" "}
 					<Switch>
 						<Route path="/categories" component={Categories} exact={true} />
-						<Route path="/category/add" component={NewCategory} />
+						<Route path="/categories/add" component={NewCategory} />
 						<Route
 							path="/categories/:id"
 							component={CategoryShow}
@@ -44,8 +44,8 @@ class App extends Component {
 						/>
 						<Route path="/categories/edit/:id" component={CategoryEdit} />
 						<Route path="/products" component={Product} exact={true} />
-						<Route path="/product/add" component={AddProduct} exact={true} />
-						<Route path="/product/:id" component={ProductShow} exact={true} />
+						<Route path="/products/add" component={AddProduct} exact={true} />
+						<Route path="/products/:id" component={ProductShow} exact={true} />
 						<Route path="/product/edit/:id" component={ProductEdit} />
 						<Route path="/user/register" component={Register} />
 						<Route path="/user/login" component={Login} />

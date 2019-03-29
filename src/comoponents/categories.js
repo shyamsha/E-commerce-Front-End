@@ -27,7 +27,7 @@ class Categories extends Component {
 						);
 					})}
 				</ul>
-				<Link to="Category/add">Add Category</Link>
+				<Link to="Categories/add">Add Category</Link>
 			</div>
 		);
 	}
