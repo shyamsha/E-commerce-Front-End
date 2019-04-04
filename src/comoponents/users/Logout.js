@@ -5,15 +5,16 @@ const Logout = props => {
 	axios
 		.delete("/users/logout", {
 			headers: {
-				"x-auth": localStorage.removeItem("token")
+				"x-auth": localStorage.getItem("token")
 			}
 		})
 		.then(responce => {
-			return { statusText: "you have successfully logged out" };
+			console.log(responce.data);
 		})
 		.catch(err => {
-			return { statusText: "somthing went worng" };
+			return "somthing went worng";
 		});
+	props.history.push("/user/Login/");
 	return <div />;
 };
 

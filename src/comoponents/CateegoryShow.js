@@ -12,19 +12,29 @@ class CategoryShow extends Component {
 
 	componentDidMount() {
 		const id = this.props.match.params.id;
-		axios.get(`/categories/${id}`).then(response => {
-			this.setState(() => ({
-				category: response.data.category,
-				products: response.data.products
-			}));
-		});
+		axios
+			.get(`/categories/${id}`, {
+				headers: {
+					"x-auth": localStorage.getItem("token")
+				}
+			})
+			.then(response => {
+				this.setState(() => ({
+					category: response.data.category,
+					products: response.data.products
+				}));
+			});
 	}
 	handleDelete = () => {
 		const confirm = window.confirm("Are You Sure");
 		const id = this.props.match.params.id;
 		if (confirm) {
 			axios
-				.delete(`categories/${id}`)
+				.delete(`categories/${id}`, {
+					headers: {
+						"x-auth": localStorage.getItem("token")
+					}
+				})
 				.then(response => {
 					this.props.history.push("/categories"); // this anthor way of redireact
 				})

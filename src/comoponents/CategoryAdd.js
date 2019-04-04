@@ -5,8 +5,13 @@ import CategoryForm from "./CategoriesForm";
 class NewCategory extends Component {
 	handleSubmit = formData => {
 		axios
-			.post("/categories", formData)
+			.post("/categories", formData, {
+				headers: {
+					"x-auth": localStorage.getItem("token")
+				}
+			})
 			.then(response => {
+				console.log(response.data);
 				this.props.history.push("/categories");
 			})
 			.catch(err => {

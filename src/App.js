@@ -14,8 +14,10 @@ import NewCategory from "./comoponents/CategoryAdd";
 import Logout from "./comoponents/users/Logout";
 import Home from "./comoponents/Home/Home";
 import Notfound from "./comoponents/Home/NotFound";
+import { AppBar, Toolbar, Typography } from "@material-ui/core";
+import Carts from "./comoponents/Cart/Carts";
 
-//import './App.css';
+import "./App.css";
 
 class App extends Component {
 	constructor(props) {
@@ -26,8 +28,7 @@ class App extends Component {
 	render() {
 		return (
 			<BrowserRouter>
-				<div className="App">
-					<h4>welcome to your mall</h4>
+				<div>
 					<Link to="/home">Home</Link> |{" "}
 					<Link to="/categories"> Categories</Link> |{" "}
 					<Link to="/products">Products</Link> |{" "}
@@ -50,6 +51,7 @@ class App extends Component {
 						<Route path="/user/register" component={Register} />
 						<Route path="/user/login" component={Login} />
 						<Route path="/user/logout" component={Logout} />
+						<Route path="/user/cart" component={Carts} />
 						<Route path="/home" component={Home} />
 						<Route component={Notfound} />
 					</Switch>

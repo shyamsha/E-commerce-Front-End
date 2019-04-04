@@ -21,7 +21,11 @@ class ProductShow extends Component {
 		const id = this.props.match.params.id;
 		if (confirm) {
 			axios
-				.delete(`products/${id}`)
+				.delete(`products/${id}`, {
+					headers: {
+						"x-auth": localStorage.getItem("token")
+					}
+				})
 				.then(response => {
 					this.props.history.push("/products"); // this anthor way of redireact
 				})
@@ -29,6 +33,24 @@ class ProductShow extends Component {
 					console.log(err);
 				});
 		}
+	};
+	handleCart = () => {
+		const data = {
+			product: this.props.match.params.id,
+			quantity: 1
+		}
+		axios
+			.post(`/carts`, data, {
+				headers: {
+					"x-auth": localStorage.getItem("token")
+				}
+			})
+			.then(response => {
+				console.log(response.data);
+			})
+			.catch(err => {
+				console.log(err);
+			});
 	};
 	render() {
 		return (
@@ -43,14 +65,14 @@ class ProductShow extends Component {
 					/>
 					<p>description:{this.state.products.description}</p>
 					<p>price -{this.state.products.price}</p>
-					<button>AddCart</button>
+					<button onClick={this.handleCart}>AddCart</button>
 				</div>
 				<hr />
 				<Link to={`/product/edit/${this.props.match.params.id}`}>Edit</Link>
 				{"|"}
 				<button onClick={this.handleDelete}>Delete</button>
 				{"|"}
-				<Link to="/products">Back</Link>
+				{/* <Link to="/products">Back</Link> */}
 			</div>
 		);
 	}
