@@ -38,7 +38,7 @@ class ProductShow extends Component {
 		const data = {
 			product: this.props.match.params.id,
 			quantity: 1
-		}
+		};
 		axios
 			.post(`/carts`, data, {
 				headers: {

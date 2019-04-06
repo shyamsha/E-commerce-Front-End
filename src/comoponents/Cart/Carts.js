@@ -8,8 +8,7 @@ class Carts extends Component {
 		this.state = {
 			carts: [],
 			cart: false,
-			quaninty: 1,
-			totalCart: 0
+			quantity: props.quaninty ? props.quaninty : "1"
 		};
 	}
 	componentDidMount() {
@@ -26,9 +25,34 @@ class Carts extends Component {
 				console.log(err);
 			});
 	}
-	handleQuentity = e => {};
+	handleQuantity = e => {
+		e.persist();
+		console.log(e.target.value);
+		this.setState(() => ({ quaninty: e.target.value }));
+	};
+	handleSubmit = () => {
+		//e.preventDefault();
+		const data = {
+			quantity: this.state.quaninty
+		};
+
+		// axios
+		// 	.put(`carts/${id}`, data, {
+		// 		headers: {
+		// 			"x-auth": localStorage.getItem("token")
+		// 		}
+		// 	})
+		// 	.then(response => {
+		// 		console.log(response.data);
+		// 	})
+		// 	.catch(err => {
+		// 		console.log(err);
+		// 	});
+		//this.props.handleSubmit(data);
+	};
 
 	render() {
+		console.log(this.state.quantity);
 		return (
 			<div>
 				<h4>
@@ -41,46 +65,59 @@ class Carts extends Component {
 				</h4>
 				{this.state.cart && (
 					<div>
-						{this.state.carts.map(product => {
+						{this.state.carts.map(cart => {
 							return (
-								<div key={product._id}>
+								<div key={cart._id}>
 									<hr />
-									<form type={this.handleSubmit}>
+									<form onSubmit={this.handleSubmit}>
 										<label>
 											<input
 												type="number"
 												name="quantity"
-												value={product.quantity}
+												value={this.state.quantity}
 												min="1"
 												max="50"
-												onChange={this.handleQuentity}
+												onChange={this.handleQuantity}
 												style={{ float: "right" }}
 											/>
 										</label>
 									</form>
 									<h4>
-										<Link to={`/products/${product.product._id}`}>
-											{product.product.name}
+										<Link to={`/products/${cart.product._id}`}>
+											{cart.product.name}
 										</Link>
 									</h4>
 									<img
-										src={product.product.imageUrl}
+										src={cart.product.imageUrl}
 										alt="productImg"
 										width="100"
 										hight="100"
 									/>
-									<p>price -{product.product.price}</p>
-									<span
-										style={{ textDecoration: "underline", color: "red" }}
+									<p>price -{cart.product.price}</p>
+									{/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+									<a
+										// eslint-disable-next-line no-script-url
+										href="javascript:void(0)"
+										target="_self"
+										rel="noopener noreferrer"
+										style={{
+											textDecoration: "underline",
+											color: "red"
+										}}
 										onClick={() => {
 											axios
-												.delete(`carts/${product._id}`, {
+												.delete(`carts/${cart._id}`, {
 													headers: {
 														"x-auth": localStorage.getItem("token")
 													}
 												})
 												.then(response => {
-													console.log(response.data);
+													let updateCart = this.state.carts.filter(
+														cartId => cartId._id !== cart._id
+													);
+													this.setState(() => ({
+														carts: updateCart
+													}));
 												})
 												.catch(err => {
 													console.log(err);
@@ -88,7 +125,7 @@ class Carts extends Component {
 										}}
 									>
 										Delete
-									</span>
+									</a>
 									<hr />
 								</div>
 							);

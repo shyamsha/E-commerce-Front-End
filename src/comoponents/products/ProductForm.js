@@ -111,12 +111,15 @@ class ProductForm extends Component {
 					</label>
 					<label>
 						Descprition:
-						<input
-							type="text"
+						<textarea
 							name="description"
 							value={this.state.description}
 							onChange={this.handleDescription}
-						/>
+							cols="25"
+							rows="5"
+						>
+							description
+						</textarea>
 						<br />
 					</label>
 					<label>

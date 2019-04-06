@@ -1,0 +1,68 @@
+#navBar {
+	background-color: #232f3e;
+
+	opacity: 0.7;
+	height: 100px;
+	color: white;
+}
+
+#topHalf {
+	height: 50px;
+}
+#bottomHalf {
+	height: 50px;
+}
+#logo {
+	height: 100px;
+	position: absolute;
+	top: -40px;
+}
+#logoWrapper {
+	margin-bottom: 20px;
+	display: inline-block;
+	position: relative;
+	width: 150px;
+}
+#backToSchool {
+	height: 50px;
+	float: right;
+	margin-right: 20px;
+}
+#in {
+	/* vertical-align: top; */
+	margin-top: 20px;
+	margin-left: 14rem;
+	border-radius: 5px;
+	height: 30px;
+	width: 500px;
+
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-ms-border-radius: 5px;
+	-o-border-radius: 5px;
+}
+#department {
+	font-size: 25px;
+	padding: 10px;
+	margin-left: 30px;
+	font-weight: bold;
+	display: inline-block;
+	vertical-align: top;
+	margin-top: 10px;
+}
+#sections {
+	display: inline-block;
+	margin-left: 5rem;
+}
+.section {
+	display: inline-block;
+	vertical-align: top;
+	font-size: 15px;
+	margin-top: 25px;
+	margin-left: 20px;
+}
+#accountStuff {
+	display: inline-block;
+	float: right;
+	margin-right: 20px;
+}

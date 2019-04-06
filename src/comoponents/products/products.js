@@ -21,23 +21,24 @@ class Product extends Component {
 				{this.state.products.map(product => {
 					return (
 						<div key={product._id}>
-							<h5>
-								<Link to={`/products/${product._id}`}>{product.name}</Link> -{" "}
-								<span style={{ color: "green" }}>{product.category.name}</span>
-							</h5>
 							<img
 								src={product.imageUrl}
 								alt="productImg"
 								width="100"
 								hight="100"
 							/>
+							<h5>
+								<Link to={`/products/${product._id}`}>{product.name}</Link> -{" "}
+								<span style={{ color: "green" }}>{product.category.name}</span>
+							</h5>
+
 							<p>price -{product.price}</p>
 							{/* <button onclick={this.handleProduct}>AddCart</button> */}
 						</div>
 					);
 				})}
 
-				{/* <Link to="products/add">Add Product</Link> */}
+				<Link to="products/add">Add Product</Link>
 			</div>
 		);
 	}

@@ -18,11 +18,18 @@ class TotalCart extends Component {
 				}
 			})
 			.then(response => {
-				this.setState(() => ({ carts: response.data.cart, cart: true }));
+				this.setState(() => ({
+					carts: response.data.cart,
+					cart: true
+				}));
 			})
 			.catch(err => {
 				console.log(err);
 			});
+	}
+
+	calculateTotal() {
+		///
 	}
 
 	render() {
@@ -31,12 +38,13 @@ class TotalCart extends Component {
 		return (
 			<div>
 				<p style={{ fontSize: "1.2rem", float: "right" }}>
-					Subtotal({this.state.carts.length}items):{total}
+					Subtotal({this.state.carts.length}items):{this.calculateTotal()}
 				</p>
 				{this.state.cart && (
 					<div>
 						{this.state.carts.forEach(product => {
 							total += product.product.price * product.quantity;
+
 							return <div />;
 						})}
 					</div>
