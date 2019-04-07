@@ -20,6 +20,7 @@ import "./App.css";
 import Addresses from "./comoponents/Addresses/Addresses";
 import AddAddress from "./comoponents/Addresses/AddAddress";
 import AddressEdit from "./comoponents/Addresses/AddressEdit";
+import ReviewAdd from "./comoponents/Reviews/ReviewAdd";
 
 class App extends Component {
 	constructor(props) {
@@ -162,6 +163,11 @@ class App extends Component {
 						<Route path="/user/addresses/edit/:id" component={AddressEdit} />
 						<Route path="/user/logout" component={Logout} />
 						<Route path="/user/cart" component={Carts} />
+						<Route
+							path="/products/user/reviews/:id"
+							component={ReviewAdd}
+							exact
+						/>
 						<Route path="/home" component={Home} />
 						<Route component={Notfound} />
 					</Switch>

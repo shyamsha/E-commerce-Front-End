@@ -1,11 +1,14 @@
 import React, { Component } from "react";
 import axios from "../../config/config";
 import { Link } from "react-router-dom";
+// import decode from "jwt-decode";
 class ProductShow extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			products: {}
+			products: {},
+			reviews: [],
+			isload: false
 		};
 	}
 	componentDidMount() {
@@ -14,6 +17,9 @@ class ProductShow extends Component {
 			const products = response.data;
 
 			this.setState(() => ({ products: products }));
+		});
+		axios.get("/reviews").then(response => {
+			this.setState(() => ({ reviews: response.data, isload: true }));
 		});
 	}
 	handleDelete = () => {
@@ -52,6 +58,7 @@ class ProductShow extends Component {
 				console.log(err);
 			});
 	};
+
 	render() {
 		return (
 			<div>
@@ -72,7 +79,29 @@ class ProductShow extends Component {
 				{"|"}
 				<button onClick={this.handleDelete}>Delete</button>
 				{"|"}
-				{/* <Link to="/products">Back</Link> */}
+				{this.state.isload && (
+					<div>
+						<h2>Reviews</h2>
+						{this.state.reviews.map(review => {
+							if (this.state.products._id === review.product) {
+								return (
+									<div key={review._id}>
+										<p>
+											<b>{review.title}</b>
+										</p>
+										<p>{review.body}</p>
+										<p>{review.rating}</p>
+									</div>
+								);
+							} else {
+								return "";
+							}
+						})}
+					</div>
+				)}
+				<Link to={`/products/user/reviews/${this.props.match.params.id}`}>
+					<button>Write a product review</button>
+				</Link>
 			</div>
 		);
 	}

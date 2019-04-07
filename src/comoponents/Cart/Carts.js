@@ -133,6 +133,9 @@ class Carts extends Component {
 					</div>
 				)}
 				<TotalCart />
+				<div>
+					<button>Proceed to By</button>
+				</div>
 			</div>
 		);
 	}

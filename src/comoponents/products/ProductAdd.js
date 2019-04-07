@@ -6,7 +6,11 @@ import { Link } from "react-router-dom";
 class AddProduct extends Component {
 	handleSubmit = data => {
 		axios
-			.post("/products", data)
+			.post("/products", data, {
+				headers: {
+					"x-auth": localStorage.getItem("token")
+				}
+			})
 			.then(responce => {
 				this.props.history.push("/products");
 			})
