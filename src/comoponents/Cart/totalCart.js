@@ -1,54 +1,43 @@
 import React, { Component } from "react";
 import axios from "../../config/config";
-let total = 0;
+
 class TotalCart extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			carts: [],
-			cart: false,
+			carts: props.carts,
 			totalCart: 0
 		};
 	}
-	componentDidMount() {
-		axios
-			.get("/carts", {
-				headers: {
-					"x-auth": localStorage.getItem("token")
-				}
-			})
-			.then(response => {
-				this.setState(() => ({
-					carts: response.data.cart,
-					cart: true
-				}));
-			})
-			.catch(err => {
-				console.log(err);
-			});
-	}
 
 	calculateTotal() {
-		///
+		let total = 0;
+		this.state.carts.forEach(product => {
+			total += product.product.price * product.quantity;
+			return total;
+		});
+		console.log(total);
+	}
+	componentWillReceiveProps(nextProps) {
+		// if (this.state.carts.length !== nextProps.carts.length) {
+		this.setState(() => ({
+			carts: nextProps.carts
+		}));
+
+		// }
+
+		console.log("update", nextProps);
 	}
 
 	render() {
-		// this.setState(() => ({ totalCart: total }))
+		console.log(this.state);
 
 		return (
 			<div>
 				<p style={{ fontSize: "1.2rem", float: "right" }}>
-					Subtotal({this.state.carts.length}items):{this.calculateTotal()}
+					Subtotal({this.state.carts.length}items):
+					{this.calculateTotal()}
 				</p>
-				{this.state.cart && (
-					<div>
-						{this.state.carts.forEach(product => {
-							total += product.product.price * product.quantity;
-
-							return <div />;
-						})}
-					</div>
-				)}
 			</div>
 		);
 	}

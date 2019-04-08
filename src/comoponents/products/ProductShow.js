@@ -15,7 +15,6 @@ class ProductShow extends Component {
 		const id = this.props.match.params.id;
 		axios.get(`/products/${id}`).then(response => {
 			const products = response.data;
-
 			this.setState(() => ({ products: products }));
 		});
 		axios.get("/reviews").then(response => {
@@ -51,12 +50,33 @@ class ProductShow extends Component {
 					"x-auth": localStorage.getItem("token")
 				}
 			})
-			.then(response => {
-				console.log(response.data);
-			})
+			.then(response => {})
 			.catch(err => {
 				console.log(err);
 			});
+	};
+	handleMonthlyCart = () => {
+		const data = {
+			product: this.props.match.params.id,
+			quantity: 1
+		};
+		const conform = window.confirm(
+			"Are you sure this items repeated every month!"
+		);
+		if (conform) {
+			axios
+				.post(`/monthlycarts`, data, {
+					headers: {
+						"x-auth": localStorage.getItem("token")
+					}
+				})
+				.then(response => {
+					console.log(response.data);
+				})
+				.catch(err => {
+					console.log(err);
+				});
+		}
 	};
 
 	render() {
@@ -73,6 +93,7 @@ class ProductShow extends Component {
 					<p>description:{this.state.products.description}</p>
 					<p>price -{this.state.products.price}</p>
 					<button onClick={this.handleCart}>AddCart</button>
+					<button onClick={this.handleMonthlyCart}>AddMonthlyCart</button>
 				</div>
 				<hr />
 				<Link to={`/product/edit/${this.props.match.params.id}`}>Edit</Link>
