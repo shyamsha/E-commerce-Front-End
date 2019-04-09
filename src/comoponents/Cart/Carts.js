@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "../../config/config";
 import { Link } from "react-router-dom";
-import TotalCart from "./totalCart";
+import TotalCart from "./TotalCart";
 class Carts extends Component {
 	constructor(props) {
 		super(props);
@@ -30,13 +30,13 @@ class Carts extends Component {
 		e.persist();
 		// console.log(e.target.value);
 		const id = e.target.id;
-		this.setState(() => ({ quaninty: e.target.value, cartId: id }));
+		this.setState(() => ({ quantity: e.target.value, cartId: id }));
 	};
 	handleSubmit = e => {
 		e.preventDefault();
 		const id = this.state.cartId;
 		const data = {
-			quantity: this.state.quaninty
+			quantity: this.state.quantity
 		};
 
 		axios
@@ -46,16 +46,21 @@ class Carts extends Component {
 				}
 			})
 			.then(response => {
-				console.log(response.data);
+				this.state.carts.forEach(cartId => {
+					if (cartId._id === id) {
+						return (cartId.quantity = this.state.quantity);
+					} else {
+						return "";
+					}
+				});
+				this.setState(() => ({ carts: this.state.carts }));
 			})
 			.catch(err => {
 				console.log(err);
 			});
-		//this.props.handleSubmit(data);
 	};
 
 	render() {
-		console.log(this.state.carts);
 		if (this.state.carts[0]) {
 			return (
 				<div>

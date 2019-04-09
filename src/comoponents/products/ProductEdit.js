@@ -23,11 +23,13 @@ class ProductEdit extends Component {
 			});
 	}
 	handleSubmit = data => {
-		console.log(data);
 		axios
-			.put(`products/${this.props.match.params.id}`, data)
+			.put(`products/${this.props.match.params.id}`, data, {
+				headers: {
+					"x-auth": localStorage.getItem("token")
+				}
+			})
 			.then(response => {
-				console.log(response.data);
 				this.props.history.push("/products");
 			})
 			.catch(err => {
