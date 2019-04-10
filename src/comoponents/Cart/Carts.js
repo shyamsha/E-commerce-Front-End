@@ -2,14 +2,15 @@ import React, { Component } from "react";
 import axios from "../../config/config";
 import { Link } from "react-router-dom";
 import TotalCart from "./TotalCart";
+import Quantity from "./Quantity";
 class Carts extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			carts: [],
-			cart: false,
-			quantity: Number,
-			cartId: ""
+			cart: false
+			// quantity: Number,
+			// cartId: ""
 		};
 	}
 	componentDidMount() {
@@ -26,19 +27,9 @@ class Carts extends Component {
 				console.log(err);
 			});
 	}
-	handleQuantity = e => {
-		e.persist();
-		// console.log(e.target.value);
-		const id = e.target.id;
-		this.setState(() => ({ quantity: e.target.value, cartId: id }));
-	};
-	handleSubmit = e => {
-		e.preventDefault();
-		const id = this.state.cartId;
-		const data = {
-			quantity: this.state.quantity
-		};
 
+	handleSubmit = (data, id) => {
+		console.log("onchange", data);
 		axios
 			.put(`carts/${id}`, data, {
 				headers: {
@@ -48,7 +39,7 @@ class Carts extends Component {
 			.then(response => {
 				this.state.carts.forEach(cartId => {
 					if (cartId._id === id) {
-						return (cartId.quantity = this.state.quantity);
+						return (cartId.quantity = data.quantity);
 					} else {
 						return "";
 					}
@@ -78,7 +69,12 @@ class Carts extends Component {
 								return (
 									<div key={cart._id}>
 										<hr />
-										<form onSubmit={this.handleSubmit}>
+										<Quantity
+											id={cart._id}
+											defaultValue={cart.quantity}
+											handleSubmit={this.handleSubmit}
+										/>
+										{/* <form onSubmit={this.handleSubmit}>
 											<label>
 												<input
 													type="number"
@@ -92,7 +88,7 @@ class Carts extends Component {
 													style={{ float: "right" }}
 												/>
 											</label>
-										</form>
+										</form> */}
 										<h4>
 											<Link to={`/products/${cart.product._id}`}>
 												{cart.product.name}

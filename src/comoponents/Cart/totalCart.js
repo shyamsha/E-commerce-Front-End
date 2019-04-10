@@ -11,10 +11,8 @@ class TotalCart extends Component {
 		let total = 0;
 		this.state.carts.forEach(product => {
 			total += product.product.price * product.quantity;
-			return total;
 		});
-
-		return <div>{total}</div>;
+		return total;
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -28,7 +26,7 @@ class TotalCart extends Component {
 			<div>
 				<p style={{ fontSize: "1.2rem", float: "right" }}>
 					Subtotal({this.state.carts.length}items):
-					{this.calculateTotal().props.children}
+					{this.calculateTotal()}
 				</p>
 			</div>
 		);

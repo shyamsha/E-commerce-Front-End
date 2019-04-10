@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import axios from "../../config/config";
 import ProductNew from "./ProductForm";
-
 class ProductEdit extends Component {
 	constructor() {
 		super();

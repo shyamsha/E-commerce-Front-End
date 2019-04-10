@@ -65,8 +65,7 @@ class ProductForm extends Component {
 	handleSubmit = e => {
 		e.preventDefault();
 		//when we send the images with text  req.file has body send it img also text also like this way
-		// const img = new FormData();
-		// img.append("imageUrl", this.state.imageUrl);
+
 		const data = new FormData();
 		data.append("name", this.state.name);
 		data.append("description", this.state.description);
@@ -75,16 +74,6 @@ class ProductForm extends Component {
 		data.append("isCod", this.state.isCod);
 		data.append("category", this.state.category);
 		data.append("imageUrl", this.state.imageUrl);
-		// const data = {
-		// 	name: this.state.name,
-		// 	description: this.state.description,
-		// 	price: this.state.price,
-		// 	stock: this.state.stock,
-		// 	isCod: this.state.isCod,
-		// 	category: this.state.category,
-		// 	imageUrl: this.state.imageUrl
-		// };
-
 		this.props.handleSubmit(data);
 		this.setState(() => ({
 			name: "",
