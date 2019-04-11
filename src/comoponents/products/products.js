@@ -32,7 +32,7 @@ class Product extends Component {
 								<span style={{ color: "green" }}>{product.category.name}</span>
 							</h5>
 
-							<p>price -{product.price}</p>
+							<p>&#x20B9; {product.price}</p>
 							{/* <button onclick={this.handleProduct}>AddCart</button> */}
 						</div>
 					);

@@ -9,8 +9,6 @@ class Carts extends Component {
 		this.state = {
 			carts: [],
 			cart: false
-			// quantity: Number,
-			// cartId: ""
 		};
 	}
 	componentDidMount() {
@@ -29,7 +27,7 @@ class Carts extends Component {
 	}
 
 	handleSubmit = (data, id) => {
-		console.log("onchange", data);
+		//console.log("onchange", data);
 		axios
 			.put(`carts/${id}`, data, {
 				headers: {
@@ -79,7 +77,6 @@ class Carts extends Component {
 												<input
 													type="number"
 													name="quantity"
-													// value={cart.quantity}
 													id={cart._id}
 													defaultValue={cart.quantity}
 													min="1"
@@ -100,7 +97,7 @@ class Carts extends Component {
 											width="100"
 											hight="100"
 										/>
-										<p>price -{cart.product.price}</p>
+										<p>&#x20B9; {cart.product.price}</p>
 										{/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
 										<a
 											// eslint-disable-next-line no-script-url
@@ -141,7 +138,9 @@ class Carts extends Component {
 					)}
 					<TotalCart carts={this.state.carts} />
 					<div>
-						<button>Proceed to By</button>
+						<Link to="/user/select/addresses">
+							<button>Proceed to Buy</button>
+						</Link>
 					</div>
 				</div>
 			);

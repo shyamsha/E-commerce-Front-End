@@ -28,10 +28,12 @@ class Addresses extends Component {
 		return (
 			<div>
 				<h3>Your Addresses</h3>
-				{this.state.addresses.map(address => {
+				{this.state.addresses.map((address, i) => {
 					return (
 						<div key={address._id}>
-							<p>{address.fullname}</p>
+							<p>
+								#{i + 1}. {address.fullname}
+							</p>
 							<div>
 								<p>
 									{address.street} <br />

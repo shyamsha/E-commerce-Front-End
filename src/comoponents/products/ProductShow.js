@@ -91,7 +91,7 @@ class ProductShow extends Component {
 						hight="100"
 					/>
 					<p>description:{this.state.products.description}</p>
-					<p>price -{this.state.products.price}</p>
+					<p>&#x20B9; {this.state.products.price}</p>
 					<button onClick={this.handleCart}>AddCart</button>
 					<button onClick={this.handleMonthlyCart}>AddMonthlyCart</button>
 				</div>

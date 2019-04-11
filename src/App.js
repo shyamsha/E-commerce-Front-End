@@ -15,12 +15,14 @@ import Home from "./comoponents/Home/Home";
 import Notfound from "./comoponents/Home/NotFound";
 // import { AppBar, Toolbar, Typography } from "@material-ui/core";
 import Carts from "./comoponents/Cart/Carts";
+import OrderHistory from "./comoponents/Orders/OrdersHistory";
 
 import "./App.css";
 import Addresses from "./comoponents/Addresses/Addresses";
 import AddAddress from "./comoponents/Addresses/AddAddress";
 import AddressEdit from "./comoponents/Addresses/AddressEdit";
 import ReviewAdd from "./comoponents/Reviews/ReviewAdd";
+import Select from "./comoponents/Addresses/Select";
 
 class App extends Component {
 	constructor(props) {
@@ -101,6 +103,14 @@ class App extends Component {
 								<div className="section">
 									<Link
 										style={{ color: "white", textDecoration: "none" }}
+										to="/user/orders"
+									>
+										Orders
+									</Link>
+								</div>
+								<div className="section">
+									<Link
+										style={{ color: "white", textDecoration: "none" }}
 										to="/user/login"
 									>
 										Login
@@ -157,10 +167,12 @@ class App extends Component {
 						<Route path="/products/:id" component={ProductShow} exact={true} />
 						<Route path="/product/edit/:id" component={ProductEdit} />
 						<Route path="/user/register" component={Register} exact />
+						<Route path="/user/orders" component={OrderHistory} exact />
 						<Route path="/user/login" component={Login} />
 						<Route path="/user/addresses" component={Addresses} exact />
 						<Route path="/user/addresses/add" component={AddAddress} />
 						<Route path="/user/addresses/edit/:id" component={AddressEdit} />
+						<Route path="/user/select/addresses" component={Select} />
 						<Route path="/user/logout" component={Logout} />
 						<Route path="/user/cart" component={Carts} />
 						<Route

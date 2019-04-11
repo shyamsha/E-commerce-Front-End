@@ -12,14 +12,14 @@ class Quantity extends Component {
 		e.persist();
 
 		this.setState(
-			() => ({ quantity: e.target.value }),
-			() => {
-				this.props.handleSubmit();
-			}
+			() => ({ quantity: e.target.value })
+			// () => {
+			// 	this.props.handleSubmit();
+			// }
 		);
 	};
-	handleSubmit = () => {
-		//e.preventDefault();
+	handleSubmit = e => {
+		e.preventDefault();
 		const id = this.props.id;
 		const data = {
 			quantity: this.state.quantity
@@ -29,7 +29,7 @@ class Quantity extends Component {
 	render() {
 		return (
 			<div>
-				<form>
+				<form onSubmit={this.handleSubmit}>
 					<label>
 						<input
 							type="number"
