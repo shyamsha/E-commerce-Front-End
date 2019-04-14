@@ -16,20 +16,50 @@ import Notfound from "./comoponents/Home/NotFound";
 // import { AppBar, Toolbar, Typography } from "@material-ui/core";
 import Carts from "./comoponents/Cart/Carts";
 import OrderHistory from "./comoponents/Orders/OrdersHistory";
-
+import axios from "./config/config";
 import "./App.css";
 import Addresses from "./comoponents/Addresses/Addresses";
 import AddAddress from "./comoponents/Addresses/AddAddress";
 import AddressEdit from "./comoponents/Addresses/AddressEdit";
 import ReviewAdd from "./comoponents/Reviews/ReviewAdd";
 import Select from "./comoponents/Addresses/Select";
+import Help from "./comoponents/Help/Help";
 
 class App extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {};
+		this.state = {
+			products: [],
+			productsData: [],
+			search: ""
+		};
 	}
+	componentDidMount() {
+		axios.get("/products").then(response => {
+			const products = response.data;
 
+			this.setState(() => ({ products: products, productsData: products }));
+		});
+	}
+	searchHandle = e => {
+		e.persist();
+		const search = e.target.value;
+		console.log(search);
+		this.setState(
+			() => ({ search }),
+			() => {
+				this.filterData();
+			}
+		);
+	};
+	filterData = () => {
+		let string = this.state.search;
+		let products = this.state.products;
+		if (string.length > 0) {
+			let filterProducts = products.filter(string);
+			this.setState(() => ({ products }));
+		}
+	};
 	render() {
 		return (
 			<BrowserRouter>
@@ -43,7 +73,13 @@ class App extends Component {
 									alt="logo"
 								/>
 							</div>
-							<input id="in" type="text" placeholder="Search" />
+							<input
+								id="in"
+								type="text"
+								value={this.state.search}
+								placeholder="Search"
+								onChange={this.searchHandle}
+							/>
 							<img id="backToSchool" src="/" alt="Offer" />
 						</div>
 
@@ -180,6 +216,7 @@ class App extends Component {
 							component={ReviewAdd}
 							exact
 						/>
+						<Route path="/help" component={Help} exact />
 						<Route path="/home" component={Home} />
 						<Route component={Notfound} />
 					</Switch>

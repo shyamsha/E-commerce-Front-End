@@ -145,7 +145,12 @@ class Carts extends Component {
 				</div>
 			);
 		} else {
-			return "";
+			return (
+				<div>
+					<h4>please add some products to the cart</h4>
+					<Link to="/home">Home</Link>
+				</div>
+			);
 		}
 	}
 }

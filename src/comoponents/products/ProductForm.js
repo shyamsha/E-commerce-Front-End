@@ -48,7 +48,7 @@ class ProductForm extends Component {
 	};
 	handleIsCod = e => {
 		e.persist();
-		console.log(e.target.value);
+
 		this.setState(() => ({ isCod: e.target.value }));
 	};
 	handleCategory = e => {

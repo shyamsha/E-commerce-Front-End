@@ -25,22 +25,40 @@ class Select extends Component {
 			});
 	}
 	placeOrder = () => {
-		const data = [];
+		const data = {
+			lineItems: []
+		};
 		this.state.carts.forEach(cart => {
-			data.push({
+			data.lineItems.push({
 				product: cart.product._id,
 				quantity: cart.quantity
 			});
 		});
+		axios
+			.post("/orders", data, {
+				headers: {
+					"x-auth": localStorage.getItem("token")
+				}
+			})
+			.then(response => {
+				console.log(response.data);
+			})
+			.catch(err => {
+				console.log(err);
+			});
 	};
 	render() {
 		return (
 			<div>
+				<label>
+					Select Address: <br />
+					<select name="addresses" id="">
+						<option value="1">1</option>
+						<option value="2">2</option>
+					</select>
+				</label>
 				<Addresses />
-				<select name="addresses" id="">
-					<option value="1">1</option>
-					<option value="2">2</option>
-				</select>
+
 				<br />
 				<button onClick={this.placeOrder}>Place the Order</button>
 			</div>

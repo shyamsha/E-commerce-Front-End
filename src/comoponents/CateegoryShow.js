@@ -62,7 +62,7 @@ class CategoryShow extends Component {
 								hight="100"
 							/>
 							<br />
-							<p>price:{product.price}</p>
+							<p>&#x20B9; {product.price}</p>
 						</div>
 					);
 				})}

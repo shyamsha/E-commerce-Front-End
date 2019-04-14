@@ -1,11 +1,59 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
+import Avatar from "@material-ui/core/Avatar";
+import Button from "@material-ui/core/Button";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import FormControl from "@material-ui/core/FormControl";
+import Input from "@material-ui/core/Input";
+import InputLabel from "@material-ui/core/InputLabel";
+import VerifiedUserIcon from "@material-ui/icons/VerifiedUser";
+import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
+import withStyles from "@material-ui/core/styles/withStyles";
+
+import IconButton from "@material-ui/core/IconButton";
+
 import { Link } from "react-router-dom";
+const styles = theme => ({
+	main: {
+		width: "auto",
+		display: "block", // Fix IE 11 issue.
+		marginLeft: theme.spacing.unit * 3,
+		marginRight: theme.spacing.unit * 3,
+		[theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]: {
+			width: 400,
+			marginLeft: "auto",
+			marginRight: "auto"
+		}
+	},
+	paper: {
+		marginTop: theme.spacing.unit * 8,
+		display: "flex",
+		flexDirection: "column",
+		alignItems: "center",
+		padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme
+			.spacing.unit * 3}px`
+	},
+	avatar: {
+		margin: theme.spacing.unit,
+		backgroundColor: theme.palette.secondary.main
+	},
+	form: {
+		width: "100%", // Fix IE 11 issue.
+		marginTop: theme.spacing.unit
+	},
+	submit: {
+		marginTop: theme.spacing.unit * 3
+	}
+});
 
 class CategoryForm extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			name: props.name ? props.name : ""
+			name: props.name ? props.name : "",
+			nameError: "",
+			nError: false
 		};
 	}
 	handleName = e => {
@@ -19,14 +67,63 @@ class CategoryForm extends Component {
 		const formData = {
 			name: this.state.name
 		};
-		this.props.handleSubmit(formData);
-		this.setState(() => ({ name: "" }));
+		const nameReg = /^([a-zA-Z]+)[0-9]*\.*[a-zA-Z0-9]+$|^[a-zA-Z]+[0-9]*$/.test(
+			this.state.name
+		);
+		if (!nameReg) {
+			this.setState(() => ({
+				nameError: "Give Proper Nameing Format",
+				nError: true
+			}));
+		} else {
+			this.props.handleSubmit(formData);
+			this.setState(() => ({ nameError: "", nError: false }));
+		}
 	};
 
 	render() {
+		const { classes } = this.props;
 		return (
 			<div>
-				<form onSubmit={this.handleSubmit}>
+				<main className={classes.main}>
+					<CssBaseline />
+					<Paper className={classes.paper}>
+						<Avatar className={classes.avatar}>
+							<VerifiedUserIcon />
+						</Avatar>
+						<Typography component="h1" variant="h5">
+							Name Of Category
+						</Typography>
+
+						<form className={classes.form}>
+							<FormControl margin="normal" required fullWidth>
+								<InputLabel htmlFor="email">Name Of Category</InputLabel>
+								<Input
+									type="text"
+									name="name"
+									value={this.state.name}
+									onChange={this.handleName}
+									placeholder="Your Category"
+									required
+									error={this.state.nError}
+								/>
+								<span style={{ color: "red" }}>{this.state.nameError}</span>
+							</FormControl>
+							<Button
+								type="submit"
+								fullWidth
+								variant="outlined"
+								color="secondary"
+								size="small"
+								className={classes.submit}
+								onClick={this.handleSubmit}
+							>
+								Submit
+							</Button>
+						</form>
+					</Paper>
+				</main>
+				{/* <form onSubmit={this.handleSubmit}>
 					<label>
 						Name Of Category:
 						<input
@@ -38,11 +135,32 @@ class CategoryForm extends Component {
 					</label>
 					<br />
 					<input type="submit" value="submit" />
-				</form>
-				<Link to="/categories">Back</Link>
+				</form> */}
+				<div style={{ marginLeft: "14rem", float: "left" }}>
+					<Button
+						variant="text"
+						color="secondary"
+						size="small"
+						className={classes.button}
+					>
+						<Link
+							to="/categories"
+							style={{
+								color: "#F50057",
+								textDecoration: "none"
+							}}
+						>
+							<i className="material-icons md-48">arrow_back</i>
+						</Link>
+					</Button>
+				</div>
 			</div>
 		);
 	}
 }
 
-export default CategoryForm;
+CategoryForm.propTypes = {
+	classes: PropTypes.object.isRequired
+};
+
+export default withStyles(styles)(CategoryForm);
