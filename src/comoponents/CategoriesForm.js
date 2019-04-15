@@ -10,14 +10,11 @@ import VerifiedUserIcon from "@material-ui/icons/VerifiedUser";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
-
-import IconButton from "@material-ui/core/IconButton";
-
 import { Link } from "react-router-dom";
 const styles = theme => ({
 	main: {
 		width: "auto",
-		display: "block", // Fix IE 11 issue.
+		display: "block",
 		marginLeft: theme.spacing.unit * 3,
 		marginRight: theme.spacing.unit * 3,
 		[theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]: {
@@ -136,7 +133,7 @@ class CategoryForm extends Component {
 					<br />
 					<input type="submit" value="submit" />
 				</form> */}
-				<div style={{ marginLeft: "14rem", float: "left" }}>
+				<div style={{ marginLeft: "15rem", float: "left" }}>
 					<Button
 						variant="text"
 						color="secondary"

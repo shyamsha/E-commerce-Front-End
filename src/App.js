@@ -13,7 +13,6 @@ import NewCategory from "./comoponents/CategoryAdd";
 import Logout from "./comoponents/users/Logout";
 import Home from "./comoponents/Home/Home";
 import Notfound from "./comoponents/Home/NotFound";
-// import { AppBar, Toolbar, Typography } from "@material-ui/core";
 import Carts from "./comoponents/Cart/Carts";
 import OrderHistory from "./comoponents/Orders/OrdersHistory";
 import axios from "./config/config";
@@ -24,42 +23,33 @@ import AddressEdit from "./comoponents/Addresses/AddressEdit";
 import ReviewAdd from "./comoponents/Reviews/ReviewAdd";
 import Select from "./comoponents/Addresses/Select";
 import Help from "./comoponents/Help/Help";
+import decode from "jwt-decode";
 
 class App extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			products: [],
-			productsData: [],
-			search: ""
+			role: "",
+			search: "",
+			admin: false,
+			user: false,
+			isAuth: false,
+			msg: ""
 		};
 	}
-	componentDidMount() {
-		axios.get("/products").then(response => {
-			const products = response.data;
 
-			this.setState(() => ({ products: products, productsData: products }));
-		});
-	}
-	searchHandle = e => {
-		e.persist();
-		const search = e.target.value;
-		console.log(search);
-		this.setState(
-			() => ({ search }),
-			() => {
-				this.filterData();
-			}
-		);
+	handleLogin = () => {
+		this.setState(() => ({
+			isAuth: true
+		}));
 	};
-	filterData = () => {
-		let string = this.state.search;
-		let products = this.state.products;
-		if (string.length > 0) {
-			let filterProducts = products.filter(string);
-			this.setState(() => ({ products }));
-		}
+	handleLogout = () => {
+		this.setState(() => ({
+			isAuth: false
+		}));
 	};
+
+	searchHandle = e => {};
 	render() {
 		return (
 			<BrowserRouter>
@@ -69,7 +59,7 @@ class App extends Component {
 							<div id="logoWrapper">
 								<img
 									id="logo"
-									src="http://www.userlogos.org/files/logos/ArkAngel06/Amazon.p"
+									src="http://www.userlogos.org/files/logos/ArkAngel06/Amazon.pn"
 									alt="logo"
 								/>
 							</div>
@@ -144,14 +134,18 @@ class App extends Component {
 										Orders
 									</Link>
 								</div>
-								<div className="section">
-									<Link
-										style={{ color: "white", textDecoration: "none" }}
-										to="/user/login"
-									>
-										Login
-									</Link>
-								</div>
+								{!this.state.isAuth ? (
+									<div className="section">
+										<Link
+											style={{ color: "white", textDecoration: "none" }}
+											to="/user/login"
+										>
+											Login
+										</Link>
+									</div>
+								) : (
+									<></>
+								)}
 								<div className="section">
 									<Link
 										style={{ color: "white", textDecoration: "none" }}
@@ -160,14 +154,18 @@ class App extends Component {
 										Your Addresses
 									</Link>
 								</div>
-								<div className="section">
-									<Link
-										style={{ color: "white", textDecoration: "none" }}
-										to="/user/logout"
-									>
-										Logout
-									</Link>
-								</div>
+								{this.state.isAuth ? (
+									<div className="section">
+										<Link
+											style={{ color: "white", textDecoration: "none" }}
+											to="/user/logout"
+										>
+											Logout
+										</Link>
+									</div>
+								) : (
+									<></>
+								)}
 								<div className="section">
 									<Link
 										style={{ color: "white", textDecoration: "none" }}
@@ -204,12 +202,22 @@ class App extends Component {
 						<Route path="/product/edit/:id" component={ProductEdit} />
 						<Route path="/user/register" component={Register} exact />
 						<Route path="/user/orders" component={OrderHistory} exact />
-						<Route path="/user/login" component={Login} />
+						<Route
+							path="/user/login"
+							render={props => {
+								return <Login {...props} handleLogin={this.handleLogin} />;
+							}}
+						/>
 						<Route path="/user/addresses" component={Addresses} exact />
 						<Route path="/user/addresses/add" component={AddAddress} />
 						<Route path="/user/addresses/edit/:id" component={AddressEdit} />
 						<Route path="/user/select/addresses" component={Select} />
-						<Route path="/user/logout" component={Logout} />
+						<Route
+							path="/user/logout"
+							render={props => {
+								return <Logout {...props} handleLogout={this.handleLogout} />;
+							}}
+						/>
 						<Route path="/user/cart" component={Carts} />
 						<Route
 							path="/products/user/reviews/:id"

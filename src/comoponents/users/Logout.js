@@ -9,7 +9,8 @@ const Logout = props => {
 			}
 		})
 		.then(responce => {
-			console.log(responce.data);
+			localStorage.removeItem("token");
+			props.handleLogout();
 		})
 		.catch(err => {
 			return "somthing went worng";
