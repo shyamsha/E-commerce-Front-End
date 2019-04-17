@@ -82,8 +82,14 @@ class Login extends Component {
 			email: this.state.email,
 			password: this.state.password
 		};
-
-		if (
+		if (this.state.email === "" && this.state.password === "") {
+			this.setState(() => ({
+				emailError: "give valid email format",
+				error: true,
+				passwordError: "please type the password",
+				perror: true
+			}));
+		} else if (
 			this.state.email.indexOf("@") === -1 ||
 			this.state.email.indexOf(".") === -1 ||
 			this.state.email === ""

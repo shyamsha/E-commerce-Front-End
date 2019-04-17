@@ -2,6 +2,13 @@ import React, { Component } from "react";
 import axios from "../../config/config";
 import ReviewForm from "./ReviewForm";
 class ReviewAdd extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			formError: ""
+		};
+	}
+
 	handleSubmit = data => {
 		const id = this.props.match.params.id;
 		const formData = Object.assign(data, { product: id });
@@ -11,17 +18,25 @@ class ReviewAdd extends Component {
 					"x-auth": localStorage.getItem("token")
 				}
 			})
-			.then(responce => {
-				this.props.history.push(`/products/${id}`);
+			.then(response => {
+				console.log(response.data.name);
+				if (!response.data.name) {
+					this.props.history.push(`/products/${id}`);
+				} else {
+					this.setState(() => ({ formError: "Please Fill Form Properly" }));
+				}
 			})
 			.catch(err => {
 				console.log(err);
 			});
 	};
 	render() {
+		console.log(this.state);
 		return (
 			<div>
-				<h3>Create Review</h3>
+				<center>
+					<span style={{ color: "red" }}>{this.state.formError}</span>
+				</center>
 				<ReviewForm handleSubmit={this.handleSubmit} />
 			</div>
 		);

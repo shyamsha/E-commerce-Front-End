@@ -38,7 +38,6 @@ class ProductEdit extends Component {
 	render() {
 		return (
 			<div>
-				<h5>Edit Here</h5>
 				{this.state.isLoad && (
 					<ProductNew
 						name={this.state.product.name}

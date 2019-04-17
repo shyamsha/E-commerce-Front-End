@@ -225,7 +225,8 @@ class App extends Component {
 							exact
 						/>
 						<Route path="/help" component={Help} exact />
-						<Route path="/home" component={Home} />
+						<Route path="/home" component={Home} exact />
+						<Route path="/" component={Home} />
 						<Route component={Notfound} />
 					</Switch>
 				</div>

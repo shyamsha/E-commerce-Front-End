@@ -18,7 +18,7 @@ class Categories extends Component {
 		return (
 			<div>
 				{/* <h5> Categories - {this.state.categories.length}</h5> */}
-				<ul>
+				<ul style={{ listStyle: "none" }}>
 					{this.state.categories.map(category => {
 						return (
 							<li key={category._id}>
@@ -27,6 +27,7 @@ class Categories extends Component {
 						);
 					})}
 				</ul>
+
 				<Link to="Categories/add">Add Category</Link>
 			</div>
 		);
