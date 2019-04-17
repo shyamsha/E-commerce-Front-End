@@ -53,10 +53,6 @@ const styles = theme => ({
 	},
 	cardContent: {
 		flexGrow: 1
-	},
-	footer: {
-		backgroundColor: theme.palette.background.paper,
-		padding: theme.spacing.unit * 6
 	}
 });
 class Product extends Component {
@@ -79,7 +75,7 @@ class Product extends Component {
 				<Button
 					variant="outlined"
 					color="secondary"
-					style={{ marginLeft: "1200px", marginTop: "5px" }}
+					style={{ marginLeft: "1080px", marginTop: "5px" }}
 				>
 					<Link
 						to="products/add"
@@ -110,7 +106,7 @@ class Product extends Component {
 					<div className={classNames(classes.layout, classes.cardGrid)}>
 						<Grid container spacing={8}>
 							{this.state.products.map(product => (
-								<Grid item key={product._id} sm={6} md={4} lg={3}>
+								<Grid item key={product._id} md={3}>
 									<Card className={classes.card}>
 										<CardMedia
 											className={classes.cardMedia}

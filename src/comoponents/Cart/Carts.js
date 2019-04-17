@@ -72,20 +72,7 @@ class Carts extends Component {
 											defaultValue={cart.quantity}
 											handleSubmit={this.handleSubmit}
 										/>
-										{/* <form onSubmit={this.handleSubmit}>
-											<label>
-												<input
-													type="number"
-													name="quantity"
-													id={cart._id}
-													defaultValue={cart.quantity}
-													min="1"
-													max="50"
-													onChange={this.handleQuantity}
-													style={{ float: "right" }}
-												/>
-											</label>
-										</form> */}
+
 										<h4>
 											<Link to={`/products/${cart.product._id}`}>
 												{cart.product.name}

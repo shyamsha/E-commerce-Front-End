@@ -210,13 +210,32 @@ class ProductShow extends Component {
 										{this.state.reviews.map(review => {
 											if (this.state.products._id === review.product) {
 												return (
-													<div key={review._id} className={classes.root}>
+													<div
+														key={review._id}
+														className={classes.root}
+													>
 														<Grid item>
-															<Typography gutterBottom variant="subtitle1">
-																{review.title}
+															<Typography
+																gutterBottom
+																variant="subtitle1"
+															>
+																{review.title} By:
+																<span
+																	style={{
+																		color: "#F50057",
+																		textDecoration:
+																			"underline"
+																	}}
+																>
+																	{review.user.username}
+																</span>
 															</Typography>
-															<Typography>{review.body}</Typography>
-															<Typography>{review.rating}</Typography>
+															<Typography>
+																{review.body}
+															</Typography>
+															<Typography>
+																{review.rating}
+															</Typography>
 														</Grid>
 
 														<hr />

@@ -14,8 +14,9 @@ import Logout from "./comoponents/users/Logout";
 import Home from "./comoponents/Home/Home";
 import Notfound from "./comoponents/Home/NotFound";
 import Carts from "./comoponents/Cart/Carts";
+import MonthlyCarts from "./comoponents/MonthlyCart/MonthlyCart";
 import OrderHistory from "./comoponents/Orders/OrdersHistory";
-import axios from "./config/config";
+// import axios from "./config/config";
 import "./App.css";
 import Addresses from "./comoponents/Addresses/Addresses";
 import AddAddress from "./comoponents/Addresses/AddAddress";
@@ -23,7 +24,7 @@ import AddressEdit from "./comoponents/Addresses/AddressEdit";
 import ReviewAdd from "./comoponents/Reviews/ReviewAdd";
 import Select from "./comoponents/Addresses/Select";
 import Help from "./comoponents/Help/Help";
-import decode from "jwt-decode";
+// import decode from "jwt-decode";
 
 class App extends Component {
 	constructor(props) {
@@ -174,6 +175,14 @@ class App extends Component {
 										Cart
 									</Link>
 								</div>
+								<div className="section">
+									<Link
+										style={{ color: "white", textDecoration: "none" }}
+										to="/user/monthlycart"
+									>
+										MonthlyCart
+									</Link>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -219,6 +228,7 @@ class App extends Component {
 							}}
 						/>
 						<Route path="/user/cart" component={Carts} />
+						<Route path="/user/monthlycart" component={MonthlyCarts} />
 						<Route
 							path="/products/user/reviews/:id"
 							component={ReviewAdd}
@@ -226,7 +236,7 @@ class App extends Component {
 						/>
 						<Route path="/help" component={Help} exact />
 						<Route path="/home" component={Home} exact />
-						<Route path="/" component={Home} />
+						<Route path="/" component={Home} exact />
 						<Route component={Notfound} />
 					</Switch>
 				</div>
