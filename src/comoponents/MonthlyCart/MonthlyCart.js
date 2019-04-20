@@ -53,7 +53,6 @@ class MonthlyCarts extends Component {
 	};
 
 	render() {
-		console.log(this.state);
 		if (this.state.carts[0]) {
 			return (
 				<div>

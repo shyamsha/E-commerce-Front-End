@@ -17,6 +17,7 @@ class OrderHistory extends Component {
 				}
 			})
 			.then(response => {
+				console.log(response.data);
 				this.setState(() => ({ orders: response.data, order: true }));
 			})
 			.catch(err => {
@@ -26,7 +27,7 @@ class OrderHistory extends Component {
 	render() {
 		return (
 			<div>
-				<h2>Your Orders</h2>
+				<h3>Your Orders</h3>
 				{this.state.order && (
 					<div>
 						{this.state.orders.map(product => {

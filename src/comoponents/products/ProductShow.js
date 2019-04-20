@@ -8,6 +8,7 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import Button from "@material-ui/core/Button";
+import ReactStars from "react-stars";
 // import decode from "jwt-decode";
 
 const styles = theme => ({
@@ -44,6 +45,7 @@ class ProductShow extends Component {
 		const id = this.props.match.params.id;
 		axios.get(`/products/${id}`).then(response => {
 			const products = response.data;
+
 			this.setState(() => ({ products: products }));
 		});
 		axios.get("/reviews").then(response => {
@@ -107,7 +109,9 @@ class ProductShow extends Component {
 				});
 		}
 	};
-
+	ratingChanged = newRating => {
+		console.log(newRating);
+	};
 	render() {
 		const { classes } = this.props;
 		return (
@@ -184,7 +188,6 @@ class ProductShow extends Component {
 						Edit
 					</Link>
 				</Button>
-
 				<Button
 					color="secondary"
 					size="small"
@@ -194,7 +197,6 @@ class ProductShow extends Component {
 				>
 					Delete
 				</Button>
-
 				<br />
 				<br />
 				<div className={classes.root}>
@@ -210,32 +212,27 @@ class ProductShow extends Component {
 										{this.state.reviews.map(review => {
 											if (this.state.products._id === review.product) {
 												return (
-													<div
-														key={review._id}
-														className={classes.root}
-													>
+													<div key={review._id} className={classes.root}>
 														<Grid item>
-															<Typography
-																gutterBottom
-																variant="subtitle1"
-															>
+															<Typography gutterBottom variant="subtitle1">
 																{review.title} By:
 																<span
 																	style={{
 																		color: "#F50057",
-																		textDecoration:
-																			"underline"
+																		textDecoration: "underline"
 																	}}
 																>
 																	{review.user.username}
 																</span>
 															</Typography>
-															<Typography>
-																{review.body}
-															</Typography>
-															<Typography>
-																{review.rating}
-															</Typography>
+															<Typography>{review.body}</Typography>
+															{/* <Typography> */}
+															<ReactStars
+																value={review.rating}
+																size={24}
+																color2={"#F50057"}
+															/>
+															{/* </Typography> */}
 														</Grid>
 
 														<hr />
