@@ -3,14 +3,43 @@ import axios from "../../config/config";
 import { Link } from "react-router-dom";
 import MonthlyTotalCart from "./MonthlyTotalCart";
 import MonthlyQuantity from "./MonthlyQuantity";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DateFnsUtils from "@date-io/date-fns";
+// import Grid from "@material-ui/core/Grid";
+import { withStyles } from "@material-ui/core/styles";
+
+import PropTypes from "prop-types";
+import { MuiPickersUtilsProvider, InlineDatePicker } from "material-ui-pickers";
+
+const styles = {
+	grid: {
+		width: "60%"
+	}
+};
+
 class MonthlyCarts extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			carts: [],
-			cart: false
+			cart: false,
+			open: false,
+			fromselectedDate: new Date(),
+			toselectedDate: new Date()
 		};
 	}
+	fromHandleDateChange = date => {
+		this.setState({ fromselectedDate: date });
+	};
+	toHandleDateChange = date => {
+		this.setState({ toselectedDate: date });
+	};
 	componentDidMount() {
 		axios
 			.get("/monthlycarts", {
@@ -19,7 +48,6 @@ class MonthlyCarts extends Component {
 				}
 			})
 			.then(response => {
-				console.log(response.data);
 				this.setState(() => ({
 					carts: response.data.monthlyCart,
 					cart: true
@@ -29,6 +57,14 @@ class MonthlyCarts extends Component {
 				console.log(err);
 			});
 	}
+
+	handleClickOpen = () => {
+		this.setState({ open: true });
+	};
+
+	handleClose = () => {
+		this.setState({ open: false });
+	};
 
 	handleSubmit = (data, id) => {
 		axios
@@ -53,13 +89,19 @@ class MonthlyCarts extends Component {
 	};
 
 	render() {
+		// const { classes } = this.props;
+		const { fromselectedDate, toselectedDate } = this.state;
 		if (this.state.carts[0]) {
 			return (
 				<div>
 					<h4>
 						Shopping Cart-{this.state.carts.length}
 						<span
-							style={{ float: "right", fontSize: "15px", fontWeight: "normal" }}
+							style={{
+								float: "right",
+								fontSize: "15px",
+								fontWeight: "normal"
+							}}
 						>
 							Quantity
 						</span>
@@ -128,9 +170,92 @@ class MonthlyCarts extends Component {
 					)}
 					<MonthlyTotalCart carts={this.state.carts} />
 					<div>
-						<Link to="/user/select/addresses">
+						{/* <Link to="/user/select/addresses">
 							<button>Proceed to Buy</button>
-						</Link>
+						</Link> */}
+						<Button
+							variant="outlined"
+							color="secondary"
+							onClick={this.handleClickOpen}
+						>
+							place the order
+						</Button>
+						<Dialog
+							open={this.state.open}
+							onClose={this.handleClose}
+							aria-labelledby="form-dialog-title"
+						>
+							<DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+							<DialogContent>
+								<DialogContentText>
+									Are you sure for purchasing this products every monthly.
+									please enter your email address and pickup date here. We will
+									send updates occasionally. please Subscribe to agree terms and
+									conditions
+								</DialogContentText>
+								<TextField
+									margin="dense"
+									id="name"
+									label="Email Address"
+									type="email"
+									fullWidth
+								/>
+								<br />
+								<MuiPickersUtilsProvider utils={DateFnsUtils}>
+									<InlineDatePicker
+										// readonly={true}
+										margin="dense"
+										fullWidth
+										label="FROM"
+										value={fromselectedDate}
+										onChange={this.fromHandleDateChange}
+									/>
+
+									<InlineDatePicker
+										margin="dense"
+										fullWidth
+										label="TO"
+										value={toselectedDate}
+										onChange={this.toHandleDateChange}
+									/>
+								</MuiPickersUtilsProvider>
+
+								{/* <div className="picker">
+									<InlineDatePicker
+										keyboard
+										clearable
+										variant="outlined"
+										label="With keyboard"
+										value={selectedDate}
+										onChange={handleDateChange}
+										format={this.props.getFormatString({
+											moment: "MM/DD/YYYY",
+											dateFns: "MM/dd/yyyy"
+										})}
+										mask={[
+											/\d/,
+											/\d/,
+											"/",
+											/\d/,
+											/\d/,
+											"/",
+											/\d/,
+											/\d/,
+											/\d/,
+											/\d/
+										]}
+									/>
+								</div> */}
+							</DialogContent>
+							<DialogActions>
+								<Button onClick={this.handleClose} color="primary">
+									Cancel
+								</Button>
+								<Button onClick={this.handleClose} color="primary">
+									Subscribe
+								</Button>
+							</DialogActions>
+						</Dialog>
 					</div>
 				</div>
 			);
@@ -144,5 +269,8 @@ class MonthlyCarts extends Component {
 		}
 	}
 }
+MonthlyCarts.propTypes = {
+	classes: PropTypes.object.isRequired
+};
 
-export default MonthlyCarts;
+export default withStyles(styles)(MonthlyCarts);

@@ -59,7 +59,7 @@ class OrderHistory extends Component {
 																<p>&#x20B9; {cart.product.price}</p>
 																<p>
 																	total: {cart.product.price}*{cart.quantity}=
-																	&#x20B9; {cart.quantity * cart.product.price}
+																	&#x20B9; {cart.quantity * cart.price}
 																</p>
 																<hr />
 															</div>

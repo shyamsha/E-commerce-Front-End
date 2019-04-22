@@ -83,7 +83,7 @@ class AddressForm extends Component {
 			landmark: this.state.landmark,
 			postalCode: this.state.postalCode
 		};
-		const mobileReg = /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/.test(
+		const mobileReg = /^(?:(?:\+|0{0,2})91(\s*[ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/.test(
 			this.state.mobile
 		);
 		const postalcodeReg = /^[1-9]{1}[0-9]{2}\s{0,1}[0-9]{3}$/.test(

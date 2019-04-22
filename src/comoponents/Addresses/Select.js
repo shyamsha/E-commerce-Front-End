@@ -52,6 +52,7 @@ class Select extends Component {
 	render() {
 		return (
 			<div>
+				<Addresses />
 				<label>
 					Select Address: <br />
 					<select name="addresses" id="">
@@ -59,7 +60,6 @@ class Select extends Component {
 						<option value="2">2</option>
 					</select>
 				</label>
-				<Addresses />
 
 				<br />
 				<button onClick={this.placeOrder}>Place the Order</button>

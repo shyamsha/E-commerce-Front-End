@@ -83,7 +83,7 @@ class Addresses extends Component {
 
 	render() {
 		const { classes } = this.props;
-		const bull = <span className={classes.bullet}>•</span>;
+		// const bull = <span className={classes.bullet}>•</span>;
 		if (this.state.addresses.length >= 0) {
 			return (
 				<div>

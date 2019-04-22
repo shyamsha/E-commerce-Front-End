@@ -60,7 +60,7 @@ class App extends Component {
 							<div id="logoWrapper">
 								<img
 									id="logo"
-									src="http://www.userlogos.org/files/logos/ArkAngel06/Amazon.png"
+									src="http://www.userlogos.org/files/logos/ArkAngel06/Amazon.pn"
 									alt="logo"
 								/>
 							</div>
