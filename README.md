@@ -130,5 +130,5 @@ We create a simple grocery e-commerce app but powerful transactions happen betwe
     - click on invoice to see your billing details.
     
   ## Authors
-   1. [sam](https://shyamsha.github.io)
-   2. m gurupavan
+   1. [syam cherukuri](https://shyamsha.github.io)
+   2. gurupavan m
