@@ -5,7 +5,7 @@ We create a simple grocery e-commerce app but powerful transactions happen betwe
 
 ## Dependencies and installation
   
-    "name": "Monthly-Commerse_forntend",
+    "name": "Monthly-Commerse_front-end",
     "version": "0.1.0",
     "private": true,
     
