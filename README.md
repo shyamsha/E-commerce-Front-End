@@ -128,3 +128,7 @@ We create a simple grocery e-commerce app but powerful transactions happen betwe
     - Click on the orders it's goto orders history and see each purchage product.
   - Invoice
     - click on invoice to see your billing details.
+    
+  ## Authors
+   1. [sam](https://shyamsha.github.io)
+   2. m gurupavan
