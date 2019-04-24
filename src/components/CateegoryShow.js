@@ -1,6 +1,6 @@
 import React, { Component } from "react";
+import axios from "../config/config";
 import { Link } from "react-router-dom";
-import axios from "../../config/config";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import Card from "@material-ui/core/Card";
@@ -53,60 +53,114 @@ const styles = theme => ({
 	},
 	cardContent: {
 		flexGrow: 1
+	},
+	footer: {
+		backgroundColor: theme.palette.background.paper,
+		padding: theme.spacing.unit * 6
 	}
 });
-class Product extends Component {
-	constructor() {
-		super();
+class CategoryShow extends Component {
+	constructor(props) {
+		super(props);
 		this.state = {
+			category: {},
 			products: []
 		};
 	}
+
 	componentDidMount() {
-		axios.get("/products").then(response => {
-			const products = response.data;
-			this.setState(() => ({ products: products }));
-		});
+		const id = this.props.match.params.id;
+		axios
+			.get(`/categories/${id}`, {
+				headers: {
+					"x-auth": localStorage.getItem("token")
+				}
+			})
+			.then(response => {
+				this.setState(() => ({
+					category: response.data.category,
+					products: response.data.products
+				}));
+			});
 	}
+	handleDelete = () => {
+		const confirm = window.confirm("Are You Sure");
+		const id = this.props.match.params.id;
+		if (confirm) {
+			axios
+				.delete(`categories/${id}`, {
+					headers: {
+						"x-auth": localStorage.getItem("token")
+					}
+				})
+				.then(response => {
+					this.props.history.push("/categories"); // this anthor way of redireact
+				})
+				.catch(err => {
+					console.log(err);
+				});
+		}
+	};
+
 	render() {
 		const { classes } = this.props;
 		return (
 			<div>
-				<Button
-					variant="outlined"
-					color="secondary"
-					style={{ marginLeft: "1080px", marginTop: "5px" }}
-				>
-					<Link
-						to="products/add"
+				<CssBaseline />
+				<main>
+					<div
 						style={{
+							marginRight: "1rem",
 							float: "right",
 							color: "#F50057",
 							textDecoration: "none"
 						}}
 					>
-						Add Product
-					</Link>
-				</Button>
-				<CssBaseline />
-				<main>
+						<Button>
+							<Link
+								to={`/categories/edit/${this.props.match.params.id}`}
+								style={{
+									color: "#F50057",
+									textDecoration: "none"
+								}}
+							>
+								<Typography
+									style={{
+										color: "#F50057"
+									}}
+								>
+									Edit
+								</Typography>
+							</Link>
+						</Button>
+
+						<Button onClick={this.handleDelete}>
+							<Typography
+								style={{
+									color: "#F50057"
+								}}
+							>
+								Delete
+							</Typography>
+						</Button>
+					</div>
+
 					<div className={classes.heroUnit}>
 						<div className={classes.heroContent}>
 							<Typography
 								component="h6"
-								variant="subtitle2"
+								variant="h6"
 								align="center"
 								color="textPrimary"
-								gutterBottom
 							>
-								<img src="#" alt="g" />
+								{this.state.category.name}
 							</Typography>
 						</div>
 					</div>
 					<div className={classNames(classes.layout, classes.cardGrid)}>
 						<Grid container spacing={8}>
 							{this.state.products.map(product => (
-								<Grid item key={product._id} md={3}>
+								<Grid item key={product._id} sm={6} md={4} lg={3}>
 									<Card className={classes.card}>
 										<CardMedia
 											className={classes.cardMedia}
@@ -114,7 +168,7 @@ class Product extends Component {
 											title="Image title"
 										/>
 										<CardContent className={classes.cardContent}>
-											<Typography variant="title" component="h6">
+											<Typography variant="h6" component="h6">
 												<Link
 													to={`/products/${product._id}`}
 													style={{
@@ -136,12 +190,31 @@ class Product extends Component {
 						</Grid>
 					</div>
 				</main>
+
+				<div style={{ marginLeft: "15rem", float: "right" }}>
+					<Button
+						variant="text"
+						color="secondary"
+						size="small"
+						className={classes.button}
+					>
+						<Link
+							to="/categories"
+							style={{
+								color: "#F50057",
+								textDecoration: "none"
+							}}
+						>
+							<i className="material-icons md-48">arrow_back</i>
+						</Link>
+					</Button>
+				</div>
 			</div>
 		);
 	}
 }
-Product.propTypes = {
+CategoryShow.propTypes = {
 	classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(Product);
+export default withStyles(styles)(CategoryShow);

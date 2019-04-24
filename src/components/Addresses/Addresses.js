@@ -88,9 +88,9 @@ class Addresses extends Component {
 			return (
 				<div>
 					<Button
-						size="small"
+						variant="outlined"
 						color="secondary"
-						style={{ marginLeft: "1080px", marginTop: "5px" }}
+						style={{ marginLeft: "1190px", marginTop: "5px" }}
 					>
 						<Link
 							to="/user/addresses/add"
@@ -181,9 +181,9 @@ class Addresses extends Component {
 						There is no addresses in this user please add address
 					</Typography>
 					<Button
-						size="small"
+						variant="outlined"
 						color="secondary"
-						style={{ marginLeft: "1080px", marginTop: "5px" }}
+						style={{ marginLeft: "1190px", marginTop: "5px" }}
 					>
 						<Link
 							to="/user/addresses/add"

@@ -68,15 +68,14 @@ class Help extends React.Component {
 					onChange={this.handleChange("panel1")}
 				>
 					<ExpansionPanelSummary>
-						<Typography>Collapsible Group Item #1</Typography>
+						<Typography>Ordering Restrictions #1</Typography>
 					</ExpansionPanelSummary>
 					<ExpansionPanelDetails>
 						<Typography>
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-							Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-							eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-							Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-							eget.
+							Due to certain regulatory and operational restrictions, we are
+							unable to offer certain payment methods. As a result, customers
+							from these states will be able to place orders only up to a
+							certain value
 						</Typography>
 					</ExpansionPanelDetails>
 				</ExpansionPanel>
@@ -86,15 +85,17 @@ class Help extends React.Component {
 					onChange={this.handleChange("panel2")}
 				>
 					<ExpansionPanelSummary>
-						<Typography>Collapsible Group Item #2</Typography>
+						<Typography>
+							Standard Shipping Speeds and Delivery Charges #2
+						</Typography>
 					</ExpansionPanelSummary>
 					<ExpansionPanelDetails>
 						<Typography>
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-							Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-							eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-							Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-							eget.
+							Standard Shipping Speeds and Delivery charges for Fulfilled by
+							(company name) eligible items vary by the shipping address
+							entered. Seller fulfilled items are dispatched directly by
+							sellers. These items are indicated by the message "Sold and
+							dispatched by (seller name)".
 						</Typography>
 					</ExpansionPanelDetails>
 				</ExpansionPanel>
@@ -104,15 +105,12 @@ class Help extends React.Component {
 					onChange={this.handleChange("panel3")}
 				>
 					<ExpansionPanelSummary>
-						<Typography>Collapsible Group Item #3</Typography>
+						<Typography>Connect with Us #3</Typography>
 					</ExpansionPanelSummary>
 					<ExpansionPanelDetails>
 						<Typography>
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-							Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-							eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-							Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-							eget.
+							We can help with your orders and your payments orther releted
+							topics please contact dct@dct.com
 						</Typography>
 					</ExpansionPanelDetails>
 				</ExpansionPanel>

@@ -143,7 +143,6 @@ class Login extends Component {
 						<Typography component="h1" variant="h5">
 							Sign in
 						</Typography>
-
 						<form className={classes.form}>
 							<span style={{ color: "red" }}>{this.state.loginError}</span>
 							<FormControl margin="normal" required fullWidth>

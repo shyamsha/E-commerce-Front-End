@@ -5,6 +5,9 @@ class OnPrice extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			p500: 500,
+			p1000:1000,
+			p2000:2000,
 			products: []
 		};
 	}
@@ -14,14 +17,14 @@ class OnPrice extends Component {
 			this.setState(() => ({ products: products }));
 		});
 	}
+	handleChange=(e)=>{
+const value=e.target.value
+
+	}
 	render() {
 		return (
 			<div>
-				<form>
-					<label>
-						<input type="radio" name="500" id="" />
-					</label>
-				</form>
+				
 			</div>
 		);
 	}

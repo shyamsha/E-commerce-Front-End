@@ -91,7 +91,7 @@ class MonthlyCarts extends Component {
 	render() {
 		// const { classes } = this.props;
 		const { fromselectedDate, toselectedDate } = this.state;
-		if (this.state.carts[0]) {
+		if (localStorage.getItem("token") && this.state.carts.length[0]) {
 			return (
 				<div>
 					<h4>
@@ -170,9 +170,6 @@ class MonthlyCarts extends Component {
 					)}
 					<MonthlyTotalCart carts={this.state.carts} />
 					<div>
-						{/* <Link to="/user/select/addresses">
-							<button>Proceed to Buy</button>
-						</Link> */}
 						<Button
 							variant="outlined"
 							color="secondary"
@@ -219,33 +216,6 @@ class MonthlyCarts extends Component {
 										onChange={this.toHandleDateChange}
 									/>
 								</MuiPickersUtilsProvider>
-
-								{/* <div className="picker">
-									<InlineDatePicker
-										keyboard
-										clearable
-										variant="outlined"
-										label="With keyboard"
-										value={selectedDate}
-										onChange={handleDateChange}
-										format={this.props.getFormatString({
-											moment: "MM/DD/YYYY",
-											dateFns: "MM/dd/yyyy"
-										})}
-										mask={[
-											/\d/,
-											/\d/,
-											"/",
-											/\d/,
-											/\d/,
-											"/",
-											/\d/,
-											/\d/,
-											/\d/,
-											/\d/
-										]}
-									/>
-								</div> */}
 							</DialogContent>
 							<DialogActions>
 								<Button onClick={this.handleClose} color="primary">

@@ -120,19 +120,7 @@ class CategoryForm extends Component {
 						</form>
 					</Paper>
 				</main>
-				{/* <form onSubmit={this.handleSubmit}>
-					<label>
-						Name Of Category:
-						<input
-							type="text"
-							name="name"
-							value={this.state.name}
-							onChange={this.handleName}
-						/>
-					</label>
-					<br />
-					<input type="submit" value="submit" />
-				</form> */}
+
 				<div style={{ marginLeft: "15rem", float: "left" }}>
 					<Button
 						variant="text"

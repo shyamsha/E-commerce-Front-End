@@ -12,7 +12,7 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
 import ReactStars from "react-stars";
-// import ReviewAdd from "./ReviewAdd";
+
 const styles = theme => ({
 	main: {
 		width: "auto",
@@ -143,16 +143,6 @@ class ReviewForm extends Component {
 								<span style={{ color: "red" }}>{this.state.bodyError}</span>
 								<FormControl margin="normal" required fullWidth>
 									<InputLabel htmlFor="rating">Your Rating</InputLabel>
-
-									{/* <Input
-										type="number"
-										name="rating"
-										onChange={this.handleChange}
-										required
-										inputProps={{ min: "1", max: "5" }}
-										placeholder="give Your Rating"
-										error={this.state.rError}
-									/> */}
 									<br />
 									<br />
 									<ReactStars

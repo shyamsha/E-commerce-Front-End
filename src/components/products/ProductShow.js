@@ -75,13 +75,20 @@ class ProductShow extends Component {
 			product: this.props.match.params.id,
 			quantity: 1
 		};
+		const confirm = window.confirm(
+			"ok for go to cart or cancel for contniue shopping"
+		);
 		axios
 			.post(`/carts`, data, {
 				headers: {
 					"x-auth": localStorage.getItem("token")
 				}
 			})
-			.then(response => {})
+			.then(response => {
+				if (confirm) {
+					this.props.history.push("/user/cart");
+				}
+			})
 			.catch(err => {
 				console.log(err);
 			});
@@ -101,9 +108,7 @@ class ProductShow extends Component {
 						"x-auth": localStorage.getItem("token")
 					}
 				})
-				.then(response => {
-					console.log(response.data);
-				})
+				.then(response => {})
 				.catch(err => {
 					console.log(err);
 				});
@@ -226,13 +231,12 @@ class ProductShow extends Component {
 																</span>
 															</Typography>
 															<Typography>{review.body}</Typography>
-															{/* <Typography> */}
+
 															<ReactStars
 																value={review.rating}
 																size={24}
 																color2={"#F50057"}
 															/>
-															{/* </Typography> */}
 														</Grid>
 
 														<hr />

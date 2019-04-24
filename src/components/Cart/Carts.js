@@ -3,6 +3,7 @@ import axios from "../../config/config";
 import { Link } from "react-router-dom";
 import TotalCart from "./TotalCart";
 import Quantity from "./Quantity";
+import Button from "@material-ui/core/Button";
 class Carts extends Component {
 	constructor(props) {
 		super(props);
@@ -27,7 +28,6 @@ class Carts extends Component {
 	}
 
 	handleSubmit = (data, id) => {
-		//console.log("onchange", data);
 		axios
 			.put(`carts/${id}`, data, {
 				headers: {
@@ -50,13 +50,17 @@ class Carts extends Component {
 	};
 
 	render() {
-		if (this.state.carts[0]) {
+		if (localStorage.getItem("token") && this.state.carts[0]) {
 			return (
 				<div>
 					<h4>
 						Shopping Cart-{this.state.carts.length}
 						<span
-							style={{ float: "right", fontSize: "15px", fontWeight: "normal" }}
+							style={{
+								float: "right",
+								fontSize: "15px",
+								fontWeight: "normal"
+							}}
 						>
 							Quantity
 						</span>
@@ -125,8 +129,13 @@ class Carts extends Component {
 					)}
 					<TotalCart carts={this.state.carts} />
 					<div>
-						<Link to="/user/select/addresses">
-							<button>Proceed to Buy</button>
+						<Link
+							style={{ textDecoration: "none" }}
+							to="/user/select/addresses"
+						>
+							<Button color="secondary" variant="outlined">
+								Proceed to Buy
+							</Button>
 						</Link>
 					</div>
 				</div>
@@ -135,7 +144,7 @@ class Carts extends Component {
 			return (
 				<div>
 					<h4>please add some products to the cart</h4>
-					<Link to="/home">Home</Link>
+					<Link to="/products">Products</Link>
 				</div>
 			);
 		}
