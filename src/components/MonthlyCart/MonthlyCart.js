@@ -13,9 +13,10 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import DateFnsUtils from "@date-io/date-fns";
 // import Grid from "@material-ui/core/Grid";
 import { withStyles } from "@material-ui/core/styles";
-
+import { Redirect } from "react-router-dom";
 import PropTypes from "prop-types";
 import { MuiPickersUtilsProvider, InlineDatePicker } from "material-ui-pickers";
+import Typography from "@material-ui/core/Typography";
 
 const styles = {
 	grid: {
@@ -91,7 +92,7 @@ class MonthlyCarts extends Component {
 	render() {
 		// const { classes } = this.props;
 		const { fromselectedDate, toselectedDate } = this.state;
-		if (localStorage.getItem("token") && this.state.carts.length[0]) {
+		if (localStorage.getItem("token")) {
 			return (
 				<div>
 					<h4>
@@ -170,13 +171,23 @@ class MonthlyCarts extends Component {
 					)}
 					<MonthlyTotalCart carts={this.state.carts} />
 					<div>
-						<Button
-							variant="outlined"
-							color="secondary"
-							onClick={this.handleClickOpen}
-						>
-							place the order
-						</Button>
+						{this.state.carts[0] ? (
+							<Button
+								variant="outlined"
+								color="secondary"
+								onClick={this.handleClickOpen}
+							>
+								place the order
+							</Button>
+						) : (
+							<center>
+								<Typography>
+									Your Cart is Empty please add some product
+								</Typography>
+								<Link to="/products"> goto products</Link>
+							</center>
+						)}
+
 						<Dialog
 							open={this.state.open}
 							onClose={this.handleClose}
@@ -186,9 +197,9 @@ class MonthlyCarts extends Component {
 							<DialogContent>
 								<DialogContentText>
 									Are you sure for purchasing this products every monthly.
-									please enter your email address and pickup date here. We will
-									send updates occasionally. please Subscribe to agree terms and
-									conditions
+									please enter your email address and pickup date here. We
+									will send updates occasionally. please Subscribe to
+									agree terms and conditions
 								</DialogContentText>
 								<TextField
 									margin="dense"
@@ -217,6 +228,7 @@ class MonthlyCarts extends Component {
 									/>
 								</MuiPickersUtilsProvider>
 							</DialogContent>
+
 							<DialogActions>
 								<Button onClick={this.handleClose} color="primary">
 									Cancel
@@ -233,7 +245,7 @@ class MonthlyCarts extends Component {
 			return (
 				<div>
 					<h4>please add some products to the cart</h4>
-					<Link to="/products">Products</Link>
+					<Redirect to="/user/login" />
 				</div>
 			);
 		}

@@ -202,7 +202,9 @@ class Login extends Component {
 				</main>
 
 				<center>
+					<br />
 					<Typography>OR</Typography>
+					<br />
 					<Button
 						variant="outlined"
 						color="secondary"

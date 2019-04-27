@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "../../config/config";
 import { Link } from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
 class OrderHistory extends Component {
 	constructor(props) {
 		super(props);
@@ -25,11 +26,21 @@ class OrderHistory extends Component {
 			});
 	}
 	render() {
-		console.log(this.state);
-		if (this.state.orders.length === 0) {
+		if (!localStorage.getItem("token")) {
 			return (
 				<div>
-					<Typography>your are not yet purchaged</Typography>
+					<center>
+						<Typography>please login to see your orders</Typography>
+						<br />
+						<Button variant="outlined" color="secondary" size="small">
+							<Link
+								to="/user/login"
+								style={{ color: "#F50057", textDecoration: "none" }}
+							>
+								LogIn
+							</Link>
+						</Button>
+					</center>
 				</div>
 			);
 		} else {

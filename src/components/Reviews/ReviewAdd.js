@@ -19,7 +19,7 @@ class ReviewAdd extends Component {
 				}
 			})
 			.then(response => {
-				console.log(response.data.name);
+				console.log(response.data);
 				if (!response.data.name) {
 					this.props.history.push(`/products/${id}`);
 				} else {

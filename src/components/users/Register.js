@@ -250,12 +250,15 @@ class Register extends React.Component {
 					</Paper>
 				</main>
 				<center>
+					<br />
 					<Typography>OR</Typography>
+					<br />
 					<Button
 						variant="outlined"
 						color="secondary"
 						size="small"
 						className={classes.button}
+						style={{ width: "20rem" }}
 					>
 						<Link
 							to="/user/login"

@@ -11,7 +11,7 @@ import MenuList from "@material-ui/core/MenuList";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import CircularProgress from "@material-ui/core/CircularProgress";
-
+import decode from "jwt-decode";
 const styles = theme => ({
 	root: {
 		display: "flex"
@@ -51,6 +51,13 @@ class Categories extends Component {
 	render() {
 		const { classes } = this.props;
 		const { open } = this.state;
+		let role = "";
+		if (localStorage.getItem("token")) {
+			const userId = localStorage.getItem("token");
+			const decoded = decode(userId);
+			role = decoded.user_role[0];
+		}
+
 		if (this.state.categories.length === 0) {
 			return (
 				<div>
@@ -114,23 +121,24 @@ class Categories extends Component {
 							)}
 						</Popper>
 					</div>
-
-					<Button
-						variant="outlined"
-						color="secondary"
-						style={{ marginLeft: "1190px", marginTop: "5px" }}
-					>
-						<Link
-							to="categories/add"
-							style={{
-								float: "right",
-								color: "#F50057",
-								textDecoration: "none"
-							}}
+					{role === "admin" && (
+						<Button
+							variant="outlined"
+							color="secondary"
+							style={{ marginLeft: "1180px", marginTop: "5px" }}
 						>
-							Add Category
-						</Link>
-					</Button>
+							<Link
+								to="categories/add"
+								style={{
+									float: "right",
+									color: "#F50057",
+									textDecoration: "none"
+								}}
+							>
+								Add Category
+							</Link>
+						</Button>
+					)}
 				</div>
 			);
 		}

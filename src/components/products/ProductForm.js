@@ -201,7 +201,20 @@ class ProductForm extends Component {
 				nameError: "",
 				nError: false
 			}));
-		} else if (!this.state.imageUrl) {
+		} else if (this.state.category === "") {
+			this.setState(() => ({
+				categoryError: "please select one",
+				cError: true,
+				stockError: "",
+				sError: false,
+				priceError: " ",
+				pError: false,
+				descriptionError: "",
+				dError: false,
+				nameError: "",
+				nError: false
+			}));
+		} else if (this.state.imageUrl === null) {
 			this.setState(() => ({
 				imageError: "Upload Image",
 				iError: true,

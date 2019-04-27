@@ -9,7 +9,8 @@ import Typography from "@material-ui/core/Typography";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import Button from "@material-ui/core/Button";
 import ReactStars from "react-stars";
-// import decode from "jwt-decode";
+import decode from "jwt-decode";
+import { Redirect } from "react-router-dom";
 
 const styles = theme => ({
 	root: {
@@ -75,50 +76,75 @@ class ProductShow extends Component {
 			product: this.props.match.params.id,
 			quantity: 1
 		};
-		const confirm = window.confirm(
-			"ok for go to cart or cancel for contniue shopping"
-		);
-		axios
-			.post(`/carts`, data, {
-				headers: {
-					"x-auth": localStorage.getItem("token")
-				}
-			})
-			.then(response => {
-				if (confirm) {
-					this.props.history.push("/user/cart");
-				}
-			})
-			.catch(err => {
-				console.log(err);
-			});
+		if (localStorage.getItem("token")) {
+			const confirm = window.confirm(
+				"ok for go to cart or cancel for contniue shopping"
+			);
+			axios
+				.post(`/carts`, data, {
+					headers: {
+						"x-auth": localStorage.getItem("token")
+					}
+				})
+				.then(response => {
+					console.log(response.data);
+					if (confirm) {
+						this.props.history.push("/user/cart");
+					}
+				})
+				.catch(err => {
+					console.log(err);
+				});
+		} else {
+			this.props.history.push("/user/login");
+		}
 	};
 	handleMonthlyCart = () => {
 		const data = {
 			product: this.props.match.params.id,
 			quantity: 1
 		};
-		const conform = window.confirm(
-			"Are you sure this items repeated every month!"
-		);
-		if (conform) {
-			axios
-				.post(`/monthlycarts`, data, {
-					headers: {
-						"x-auth": localStorage.getItem("token")
-					}
-				})
-				.then(response => {})
-				.catch(err => {
-					console.log(err);
-				});
+		if (localStorage.getItem("token")) {
+			const conform = window.confirm(
+				"Are you sure this items repeated every month!"
+			);
+			if (conform) {
+				axios
+					.post(`/monthlycarts`, data, {
+						headers: {
+							"x-auth": localStorage.getItem("token")
+						}
+					})
+					.then(response => {})
+					.catch(err => {
+						console.log(err);
+					});
+			}
+		} else {
+			this.props.history.push("/user/login");
 		}
 	};
-	ratingChanged = newRating => {
-		console.log(newRating);
-	};
+
 	render() {
 		const { classes } = this.props;
+		let role = "";
+		if (localStorage.getItem("token")) {
+			const userId = localStorage.getItem("token");
+			const decoded = decode(userId);
+			role = decoded.user_role[0];
+		}
+		let rlength = this.state.reviews.length;
+
+		let count = 0;
+		let average = 0;
+		if (this.state.isload) {
+			this.state.reviews.map(review => {
+				count += review.rating;
+				return count;
+			});
+			average = Math.round(count / rlength);
+		}
+
 		return (
 			<div>
 				<div className={classes.root}>
@@ -133,6 +159,7 @@ class ProductShow extends Component {
 									/>
 								</ButtonBase>
 							</Grid>
+
 							<Grid item xs={12} sm container>
 								<Grid item xs container direction="column" spacing={24}>
 									<Grid item xs>
@@ -142,6 +169,14 @@ class ProductShow extends Component {
 										<Typography gutterBottom>
 											description: {this.state.products.description}
 										</Typography>
+
+										{/* <ReactStars
+											value={average}
+											size={14}
+											color2={"#F50057"}
+											edit={false}
+										/> */}
+
 										<Typography color="textPrimary" style={{ color: "red" }}>
 											&#x20B9; {this.state.products.price}
 										</Typography>
@@ -182,26 +217,59 @@ class ProductShow extends Component {
 								</Grid>
 							</Grid>
 						</Grid>
+						<div
+							style={{
+								marginLeft: "2rem",
+								marginTop: "2rem",
+								float: "left"
+							}}
+						>
+							<Button
+								variant="text"
+								color="secondary"
+								size="small"
+								className={classes.button}
+							>
+								<Link
+									to="/products"
+									style={{
+										color: "#F50057",
+										textDecoration: "none"
+									}}
+								>
+									<i className="material-icons md-48">arrow_back</i>
+								</Link>
+							</Button>
+						</div>
 					</Paper>
 				</div>
 				<br />
-				<Button color="secondary" size="small" variant="outlined">
-					<Link
-						style={{ color: "#F50057", textDecoration: "none" }}
-						to={`/product/edit/${this.props.match.params.id}`}
-					>
-						Edit
-					</Link>
-				</Button>
-				<Button
-					color="secondary"
-					size="small"
-					variant="outlined"
-					onClick={this.handleDelete}
-					style={{ marginLeft: "13px" }}
-				>
-					Delete
-				</Button>
+				<div>
+					{role === "admin" && (
+						<Button
+							color="secondary"
+							size="small"
+							variant="outlined"
+							onClick={this.handleDelete}
+							style={{ marginRight: "13px" }}
+						>
+							Delete
+						</Button>
+					)}
+					{role === "admin" && (
+						<Button color="secondary" size="small" variant="outlined">
+							<Link
+								style={{
+									color: "#F50057",
+									textDecoration: "none"
+								}}
+								to={`/product/edit/${this.props.match.params.id}`}
+							>
+								Edit
+							</Link>
+						</Button>
+					)}
+				</div>
 				<br />
 				<br />
 				<div className={classes.root}>
@@ -236,6 +304,7 @@ class ProductShow extends Component {
 																value={review.rating}
 																size={24}
 																color2={"#F50057"}
+																edit={false}
 															/>
 														</Grid>
 
@@ -255,6 +324,7 @@ class ProductShow extends Component {
 
 				<br />
 				<br />
+
 				<Link
 					style={{ textDecoration: "none" }}
 					to={`/products/user/reviews/${this.props.match.params.id}`}

@@ -7,6 +7,13 @@ import { withStyles } from "@material-ui/core/styles";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import NativeSelect from "@material-ui/core/NativeSelect";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import { Redirect } from "react-router-dom";
+import Typography from "@material-ui/core/Typography";
 
 const styles = theme => ({
 	root: {
@@ -19,6 +26,9 @@ const styles = theme => ({
 	},
 	selectEmpty: {
 		marginTop: theme.spacing.unit * 2
+	},
+	grid: {
+		width: "60%"
 	}
 });
 
@@ -28,9 +38,18 @@ class SelectAddress extends Component {
 		this.state = {
 			carts: [],
 			cart: false,
-			address: ""
+			open: false,
+			address: "",
+			success: false
 		};
 	}
+	handleClickOpen = () => {
+		this.setState({ open: true });
+	};
+
+	handleClose = () => {
+		this.setState({ open: false });
+	};
 	handleChange = name => event => {
 		this.setState({ [name]: event.target.value });
 	};
@@ -67,13 +86,20 @@ class SelectAddress extends Component {
 				}
 			})
 			.then(response => {
-				console.log(response.data);
+				const confirm = window.confirm(
+					"thank u for purchage our product, we happy to see you again"
+				);
+				if (confirm) {
+					this.setState(() => ({ success: true }));
+					this.props.history.push("/user/orders");
+				}
 			})
 			.catch(err => {
 				console.log(err);
 			});
 	};
 	render() {
+		console.log(this.state.success);
 		const { classes } = this.props;
 		return (
 			<div>
@@ -100,6 +126,7 @@ class SelectAddress extends Component {
 						</NativeSelect>
 						<FormHelperText>Select Address</FormHelperText>
 					</FormControl>
+
 					<Button
 						style={{
 							float: "right",
@@ -113,6 +140,32 @@ class SelectAddress extends Component {
 						Place the Order
 					</Button>
 					<Addresses />
+
+					{/* <Dialog
+						open={this.state.open}
+						onClose={this.handleClose}
+						aria-labelledby="form-dialog-title"
+					>
+						<DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+						<DialogContent>
+							<DialogContentText>
+								Are you sure for purchasing this products every monthly. please
+								enter your email address and pickup date here. We will send
+								updates occasionally. please Subscribe to agree terms and
+								conditions
+							</DialogContentText>
+							
+						</DialogContent>
+
+						<DialogActions>
+							<Button onClick={this.handleClose} color="primary">
+								Cancel
+							</Button>
+							<Button onClick={this.handleClose} color="primary">
+								Subscribe
+							</Button>
+						</DialogActions>
+					</Dialog> */}
 				</div>
 			</div>
 		);

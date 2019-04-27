@@ -4,6 +4,9 @@ import { Link } from "react-router-dom";
 import TotalCart from "./TotalCart";
 import Quantity from "./Quantity";
 import Button from "@material-ui/core/Button";
+import { Redirect } from "react-router-dom";
+import Typography from "@material-ui/core/Typography";
+
 class Carts extends Component {
 	constructor(props) {
 		super(props);
@@ -50,7 +53,7 @@ class Carts extends Component {
 	};
 
 	render() {
-		if (localStorage.getItem("token") && this.state.carts[0]) {
+		if (localStorage.getItem("token")) {
 			return (
 				<div>
 					<h4>
@@ -128,23 +131,32 @@ class Carts extends Component {
 						</div>
 					)}
 					<TotalCart carts={this.state.carts} />
-					<div>
-						<Link
-							style={{ textDecoration: "none" }}
-							to="/user/select/addresses"
-						>
-							<Button color="secondary" variant="outlined">
-								Proceed to Buy
-							</Button>
-						</Link>
-					</div>
+					{this.state.carts[0] ? (
+						<div>
+							<Link
+								style={{ textDecoration: "none" }}
+								to="/user/select/addresses"
+							>
+								<Button color="secondary" variant="outlined">
+									Proceed to Buy
+								</Button>
+							</Link>
+						</div>
+					) : (
+						<center>
+							<Typography>
+								Your Cart is Empty please add some product
+							</Typography>
+							<Link to="/products"> goto products</Link>
+						</center>
+					)}
 				</div>
 			);
 		} else {
 			return (
 				<div>
-					<h4>please add some products to the cart</h4>
-					<Link to="/products">Products</Link>
+					<h4>please login to see cart</h4>
+					<Redirect to="/user/login" />
 				</div>
 			);
 		}

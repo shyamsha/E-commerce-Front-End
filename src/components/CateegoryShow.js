@@ -11,6 +11,7 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
+import decode from "jwt-decode";
 
 const styles = theme => ({
 	appBar: {
@@ -103,47 +104,86 @@ class CategoryShow extends Component {
 	};
 
 	render() {
+		let role = "";
+		if (localStorage.getItem("token")) {
+			const userId = localStorage.getItem("token");
+			const decoded = decode(userId);
+			role = decoded.user_role[0];
+		}
 		const { classes } = this.props;
 		return (
 			<div>
+				<div style={{ marginLeft: "2rem", marginTop: "2rem", float: "left" }}>
+					<Button
+						variant="text"
+						color="secondary"
+						size="small"
+						className={classes.button}
+					>
+						<Link
+							to="/categories"
+							style={{
+								color: "#F50057",
+								textDecoration: "none"
+							}}
+						>
+							<i className="material-icons md-48">arrow_back</i>
+						</Link>
+					</Button>
+				</div>
 				<CssBaseline />
 				<main>
-					<div
-						style={{
-							marginRight: "1rem",
-							float: "right",
-							color: "#F50057",
-							textDecoration: "none"
-						}}
-					>
-						<Button>
-							<Link
-								to={`/categories/edit/${this.props.match.params.id}`}
+					{role === "admin" && (
+						<div
+							style={{
+								marginRight: "2rem",
+								marginTop: "2rem",
+								float: "right",
+								color: "#F50057",
+								textDecoration: "none"
+							}}
+						>
+							<Button
+								variant="outlined"
+								color="secondary"
+								size="small"
 								style={{
-									color: "#F50057",
-									textDecoration: "none"
+									marginRight: "1rem"
 								}}
+							>
+								<Link
+									to={`/categories/edit/${this.props.match.params.id}`}
+									style={{
+										color: "#F50057",
+										textDecoration: "none"
+									}}
+								>
+									<Typography
+										style={{
+											color: "#F50057"
+										}}
+									>
+										Edit
+									</Typography>
+								</Link>
+							</Button>
+
+							<Button
+								onClick={this.handleDelete}
+								variant="outlined"
+								color="secondary"
+								size="small"
 							>
 								<Typography
 									style={{
 										color: "#F50057"
 									}}
 								>
-									Edit
+									Delete
 								</Typography>
-							</Link>
-						</Button>
-
-						<Button onClick={this.handleDelete}>
-							<Typography
-								style={{
-									color: "#F50057"
-								}}
-							>
-								Delete
-							</Typography>
-						</Button>
-					</div>
+							</Button>
+						</div>
+					)}
 
 					<div className={classes.heroUnit}>
 						<div className={classes.heroContent}>
@@ -190,25 +230,6 @@ class CategoryShow extends Component {
 						</Grid>
 					</div>
 				</main>
-
-				<div style={{ marginLeft: "15rem", float: "right" }}>
-					<Button
-						variant="text"
-						color="secondary"
-						size="small"
-						className={classes.button}
-					>
-						<Link
-							to="/categories"
-							style={{
-								color: "#F50057",
-								textDecoration: "none"
-							}}
-						>
-							<i className="material-icons md-48">arrow_back</i>
-						</Link>
-					</Button>
-				</div>
 			</div>
 		);
 	}

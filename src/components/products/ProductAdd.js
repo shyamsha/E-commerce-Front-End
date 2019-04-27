@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import withStyles from "@material-ui/core/styles/withStyles";
 import PropTypes from "prop-types";
+import decode from "jwt-decode";
+import { Redirect } from "react-router-dom";
 
 const styles = theme => ({
 	submit: {
@@ -20,7 +22,6 @@ class AddProduct extends Component {
 				}
 			})
 			.then(response => {
-				console.log(response.data);
 				this.props.history.push("/products");
 			})
 			.catch(err => {
@@ -29,9 +30,21 @@ class AddProduct extends Component {
 	};
 	render() {
 		const { classes } = this.props;
+		let role = "";
+		if (localStorage.getItem("token")) {
+			const userId = localStorage.getItem("token");
+			const decoded = decode(userId);
+			role = decoded.user_role[0];
+		}
 		return (
 			<div>
-				<ProductForm handleSubmit={this.handleSubmit} />
+				{role === "user" ? (
+					// this.props.history.push("/user/login")
+					<Redirect to="/404" />
+				) : (
+					<ProductForm handleSubmit={this.handleSubmit} />
+				)}
+
 				<div style={{ marginLeft: "15rem", float: "left" }}>
 					<Button
 						variant="text"

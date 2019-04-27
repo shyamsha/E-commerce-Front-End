@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import axios from "../config/config";
 import CategoryForm from "./CategoriesForm";
+import decode from "jwt-decode";
+import { Redirect } from "react-router-dom";
 class CategoryEdit extends Component {
 	constructor(props) {
 		super(props);
@@ -31,14 +33,24 @@ class CategoryEdit extends Component {
 			});
 	};
 	render() {
+		let role = "";
+		if (localStorage.getItem("token")) {
+			const userId = localStorage.getItem("token");
+			const decoded = decode(userId);
+			role = decoded.user_role[0];
+		}
 		return (
 			<div>
-				{this.state.isLoad && (
-					<CategoryForm
-						name={this.state.category.name}
-						handleSubmit={this.handleSubmit}
-					/>
-				)}
+				{this.state.isLoad &&
+					(role === "user" ? (
+						// this.props.history.push("/user/login")
+						<Redirect to="/404" />
+					) : (
+						<CategoryForm
+							name={this.state.category.name}
+							handleSubmit={this.handleSubmit}
+						/>
+					))}
 			</div>
 		);
 	}

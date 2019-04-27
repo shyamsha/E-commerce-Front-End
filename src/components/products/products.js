@@ -12,6 +12,8 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 import { fade } from "@material-ui/core/styles/colorManipulator";
+import ReactStars from "react-stars";
+import decode from "jwt-decode";
 const styles = theme => ({
 	icon: {
 		marginRight: theme.spacing.unit * 2
@@ -72,14 +74,19 @@ class Product extends Component {
 		super(props);
 		this.state = {
 			products: [],
-			search: ""
-			// fakeProducts:[]
+			search: "",
+			reviews: [],
+			isLoad: false,
+			avarageReview: ""
 		};
 	}
 	componentDidMount() {
 		axios.get("/products").then(response => {
 			const products = response.data;
 			this.setState(() => ({ products: products }));
+		});
+		axios.get("/reviews").then(response => {
+			this.setState(() => ({ reviews: response.data, isLoad: true }));
 		});
 	}
 	searchHandle = e => {
@@ -89,6 +96,23 @@ class Product extends Component {
 	};
 	render() {
 		const { classes } = this.props;
+		let role = "";
+		if (localStorage.getItem("token")) {
+			const userId = localStorage.getItem("token");
+			const decoded = decode(userId);
+			role = decoded.user_role[0];
+		}
+		let rlength = this.state.reviews.length;
+		let count = 0;
+		let average = 0;
+		if (this.state.isLoad) {
+			this.state.reviews.map(review => {
+				count += review.rating;
+				return count;
+			});
+			average = Math.round(count / rlength);
+		}
+
 		let products = [];
 		if (this.state.search) {
 			let searchProducts = [];
@@ -117,22 +141,25 @@ class Product extends Component {
 		} else {
 			return (
 				<div>
-					<Button
-						variant="outlined"
-						color="secondary"
-						style={{ marginLeft: "1190px", marginTop: "5px" }}
-					>
-						<Link
-							to="products/add"
-							style={{
-								float: "right",
-								color: "#F50057",
-								textDecoration: "none"
-							}}
+					{role === "admin" && (
+						<Button
+							variant="outlined"
+							color="secondary"
+							style={{ marginLeft: "1190px", marginTop: "5px" }}
 						>
-							Add Product
-						</Link>
-					</Button>
+							<Link
+								to="products/add"
+								style={{
+									float: "right",
+									color: "#F50057",
+									textDecoration: "none"
+								}}
+							>
+								Add Product
+							</Link>
+						</Button>
+					)}
+
 					<CssBaseline />
 					<main>
 						{/* <div className={classes.heroUnit}>
@@ -201,6 +228,14 @@ class Product extends Component {
 												<Typography style={{ color: "green" }}>
 													{product.category.name}
 												</Typography>
+
+												<ReactStars
+													value={average}
+													size={14}
+													color2={"#F50057"}
+													edit={false}
+												/>
+
 												<Typography>&#x20B9; {product.price}</Typography>
 											</CardContent>
 										</Card>

@@ -12,6 +12,7 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
 import ReactStars from "react-stars";
+import { Redirect } from "react-router-dom";
 
 const styles = theme => ({
 	main: {
@@ -105,70 +106,76 @@ class ReviewForm extends Component {
 		const { classes } = this.props;
 		return (
 			<div>
-				<main className={classes.main}>
-					<CssBaseline />
-					<Paper className={classes.paper}>
-						<Avatar className={classes.avatar}>
-							<AccountCircleIcon />
-						</Avatar>
-						<Typography component="h1" variant="h5">
-							Write Your Review
-						</Typography>
-						<form className={classes.form}>
-							<FormControl margin="normal" required fullWidth>
-								<InputLabel htmlFor="title">Headline</InputLabel>
-								<Input
-									type="text"
-									name="title"
-									value={this.state.title}
-									onChange={this.handleChange}
-									placeholder="Write Your Title"
-									required
-									error={this.state.tError}
-								/>
-								<span style={{ color: "red" }}>{this.state.titleError}</span>
-							</FormControl>
-							<FormControl margin="normal" required fullWidth>
-								<InputLabel htmlFor="body">Write your review</InputLabel>
-								<Input
-									type="text"
-									name="body"
-									value={this.state.body}
-									onChange={this.handleChange}
-									required
-									multiline={true}
-									placeholder="Write your review"
-									error={this.state.bError}
-								/>
-								<span style={{ color: "red" }}>{this.state.bodyError}</span>
+				{localStorage.getItem("token") ? (
+					<main className={classes.main}>
+						<CssBaseline />
+						<Paper className={classes.paper}>
+							<Avatar className={classes.avatar}>
+								<AccountCircleIcon />
+							</Avatar>
+							<Typography component="h1" variant="h5">
+								Write Your Review
+							</Typography>
+							<form className={classes.form}>
 								<FormControl margin="normal" required fullWidth>
-									<InputLabel htmlFor="rating">Your Rating</InputLabel>
-									<br />
-									<br />
-									<ReactStars
-										count={5}
-										value={this.state.rating}
-										onChange={this.ratingChanged}
-										size={39}
-										color2={"#ffd700"}
+									<InputLabel htmlFor="title">Headline</InputLabel>
+									<Input
+										type="text"
+										name="title"
+										value={this.state.title}
+										onChange={this.handleChange}
+										placeholder="Write Your Title"
+										required
+										error={this.state.tError}
 									/>
-									<span style={{ color: "red" }}>{this.state.ratingError}</span>
+									<span style={{ color: "red" }}>{this.state.titleError}</span>
 								</FormControl>
-							</FormControl>
-							<Button
-								type="submit"
-								fullWidth
-								variant="outlined"
-								color="secondary"
-								size="small"
-								className={classes.submit}
-								onClick={this.handleSubmit}
-							>
-								Create Your Review
-							</Button>
-						</form>
-					</Paper>
-				</main>
+								<FormControl margin="normal" required fullWidth>
+									<InputLabel htmlFor="body">Write your review</InputLabel>
+									<Input
+										type="text"
+										name="body"
+										value={this.state.body}
+										onChange={this.handleChange}
+										required
+										multiline={true}
+										placeholder="Write your review"
+										error={this.state.bError}
+									/>
+									<span style={{ color: "red" }}>{this.state.bodyError}</span>
+									<FormControl margin="normal" required fullWidth>
+										<InputLabel htmlFor="rating">Your Rating</InputLabel>
+										<br />
+										<br />
+										<ReactStars
+											count={5}
+											value={this.state.rating}
+											onChange={this.ratingChanged}
+											size={39}
+											color2={"#F50057"}
+										/>
+										<span style={{ color: "red" }}>
+											{this.state.ratingError}
+										</span>
+									</FormControl>
+								</FormControl>
+								<Button
+									type="submit"
+									fullWidth
+									variant="outlined"
+									color="secondary"
+									size="small"
+									className={classes.submit}
+									onClick={this.handleSubmit}
+								>
+									Create Your Review
+								</Button>
+							</form>
+						</Paper>
+					</main>
+				) : (
+					<Redirect to="/user/login" />
+				)}
 			</div>
 		);
 	}
