@@ -87,7 +87,6 @@ class ProductShow extends Component {
 					}
 				})
 				.then(response => {
-					console.log(response.data);
 					if (confirm) {
 						this.props.history.push("/user/cart");
 					}

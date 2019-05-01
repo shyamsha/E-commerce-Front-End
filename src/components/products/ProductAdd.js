@@ -22,7 +22,7 @@ class AddProduct extends Component {
 				}
 			})
 			.then(response => {
-				this.props.history.push("/products");
+				this.props.history.push("/products/");
 			})
 			.catch(err => {
 				console.log(err);

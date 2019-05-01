@@ -91,7 +91,7 @@ class Addresses extends Component {
 						<Button
 							variant="outlined"
 							color="secondary"
-							style={{ marginLeft: "1190px", marginTop: "5px" }}
+							style={{ marginLeft: "1080px", marginTop: "5px" }}
 						>
 							<Link
 								to="/user/addresses/add"

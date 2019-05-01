@@ -77,6 +77,7 @@ class Product extends Component {
 			search: "",
 			reviews: [],
 			isLoad: false,
+
 			avarageReview: ""
 		};
 	}
@@ -145,7 +146,7 @@ class Product extends Component {
 						<Button
 							variant="outlined"
 							color="secondary"
-							style={{ marginLeft: "1190px", marginTop: "5px" }}
+							style={{ marginLeft: "1080px", marginTop: "5px" }}
 						>
 							<Link
 								to="products/add"

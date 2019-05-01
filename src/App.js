@@ -63,7 +63,7 @@ class App extends Component {
 			// isAuth: false
 		}));
 	};
-	cartHandle = () => {
+	componentDidMount() {
 		axios
 			.get("/carts", {
 				headers: {
@@ -71,13 +71,12 @@ class App extends Component {
 				}
 			})
 			.then(response => {
-				console.log(response.data.cart.length);
 				this.setState(() => ({ carts: response.data.cart, cart: true }));
 			})
 			.catch(err => {
 				console.log(err);
 			});
-	};
+	}
 	searchHandle = e => {};
 	render() {
 		let login = false;
@@ -85,6 +84,7 @@ class App extends Component {
 
 		if (localStorage.getItem("token")) {
 			login = true;
+
 			//this.cartHandle();
 		} else {
 			logout = true;
@@ -217,9 +217,10 @@ class App extends Component {
 									>
 										<Badge
 											className={classes.margin}
-											onClick={this.cartHandle}
-											badgeContent={this.state.carts.length}
+											// onClick={this.cartHandle}
+											badgeContent={0}
 											color="secondary"
+											variant="standard"
 										>
 											<i className="material-icons">add_shopping_cart</i>
 										</Badge>
@@ -326,13 +327,12 @@ class App extends Component {
 								</div>
 
 								<div className="section">
-									<br />
 									<Link
 										style={{
 											color: "white",
 											textDecoration: "none",
 											float: "left",
-											marginLeft: "500px"
+											marginLeft: "910px"
 										}}
 										to="/products"
 									>
@@ -340,7 +340,6 @@ class App extends Component {
 									</Link>
 								</div>
 								<div className="section">
-									<br />
 									<Link
 										style={{ color: "white", textDecoration: "none" }}
 										to="/help"

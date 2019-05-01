@@ -7,13 +7,13 @@ import { withStyles } from "@material-ui/core/styles";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import NativeSelect from "@material-ui/core/NativeSelect";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import { Redirect } from "react-router-dom";
-import Typography from "@material-ui/core/Typography";
+// import Dialog from "@material-ui/core/Dialog";
+// import DialogActions from "@material-ui/core/DialogActions";
+// import DialogContent from "@material-ui/core/DialogContent";
+// import DialogContentText from "@material-ui/core/DialogContentText";
+// import DialogTitle from "@material-ui/core/DialogTitle";
+// import { Redirect } from "react-router-dom";
+// import Typography from "@material-ui/core/Typography";
 
 const styles = theme => ({
 	root: {
@@ -99,7 +99,6 @@ class SelectAddress extends Component {
 			});
 	};
 	render() {
-		console.log(this.state.success);
 		const { classes } = this.props;
 		return (
 			<div>

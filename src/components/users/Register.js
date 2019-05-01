@@ -130,7 +130,7 @@ class Register extends React.Component {
 				emailError: "",
 				eError: false,
 				passwordError:
-					"Must be alphanumeric with at least one number, one letter, one special Character and be between 8-15 character in length.",
+					"Must be alphanumeric with at least one number, one letter and captial letter, one special Character and be between 8-15 character in length.",
 				pError: true
 			}));
 		} else {

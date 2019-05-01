@@ -125,7 +125,7 @@ class Categories extends Component {
 						<Button
 							variant="outlined"
 							color="secondary"
-							style={{ marginLeft: "1180px", marginTop: "5px" }}
+							style={{ marginLeft: "1050px", marginTop: "5px" }}
 						>
 							<Link
 								to="categories/add"
