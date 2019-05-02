@@ -243,7 +243,7 @@ class AddressForm extends Component {
 										name="street"
 										value={this.state.street}
 										onChange={this.handleChange}
-										multiline="true"
+										multiline={true}
 										required
 										placeholder="Write Your Street"
 										error={this.state.sError}
