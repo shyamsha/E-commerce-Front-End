@@ -13,6 +13,7 @@ import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 import { fade } from "@material-ui/core/styles/colorManipulator";
 import ReactStars from "react-stars";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import decode from "jwt-decode";
 const styles = theme => ({
 	icon: {
@@ -103,15 +104,22 @@ class Product extends Component {
 			const decoded = decode(userId);
 			role = decoded.user_role[0];
 		}
-		let rlength = this.state.reviews.length;
+
 		let count = 0;
 		let average = 0;
-		if (this.state.isLoad) {
-			this.state.reviews.map(review => {
-				count += review.rating;
-				return count;
-			});
-			average = Math.round(count / rlength);
+		if (this.state.reviews.length > 0) {
+			let rlength = this.state.reviews.length;
+			if (this.state.isLoad) {
+				this.state.reviews.map(review => {
+					return this.state.products.map(product => {
+						if (review.product === product._id) {
+							count += review.rating;
+							return count;
+						}
+					});
+				});
+				average = Math.round(count / rlength);
+			}
 		}
 
 		let products = [];
@@ -136,7 +144,27 @@ class Product extends Component {
 		if (this.state.products.length === 0) {
 			return (
 				<div>
-					<Typography>Products not add yet here</Typography>
+					<center>
+						<CircularProgress className={classes.progress} color="secondary" />
+					</center>
+					{role === "admin" && (
+						<Button
+							variant="outlined"
+							color="secondary"
+							style={{ marginLeft: "1080px", marginTop: "5px" }}
+						>
+							<Link
+								to="products/add"
+								style={{
+									float: "right",
+									color: "#F50057",
+									textDecoration: "none"
+								}}
+							>
+								Add Product
+							</Link>
+						</Button>
+					)}
 				</div>
 			);
 		} else {
@@ -205,7 +233,7 @@ class Product extends Component {
 							</center>
 						</div>
 						<div className={classNames(classes.layout, classes.cardGrid)}>
-							<Grid container spacing={8}>
+							<Grid container spacing={16}>
 								{products.map(product => (
 									<Grid item key={product._id} md={3}>
 										<Card className={classes.card}>
@@ -229,13 +257,23 @@ class Product extends Component {
 												<Typography style={{ color: "green" }}>
 													{product.category.name}
 												</Typography>
-
-												<ReactStars
-													value={average}
-													size={14}
-													color2={"#F50057"}
-													edit={false}
-												/>
+												{this.state.isLoad &&
+													this.state.reviews.map(review => {
+														if (review.product === product._id) {
+															return (
+																<div key={review._id}>
+																	<ReactStars
+																		value={average}
+																		size={14}
+																		color2={"#F50057"}
+																		edit={false}
+																	/>
+																</div>
+															);
+														} else {
+															return "";
+														}
+													})}
 
 												<Typography>&#x20B9; {product.price}</Typography>
 											</CardContent>

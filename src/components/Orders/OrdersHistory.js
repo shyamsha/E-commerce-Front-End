@@ -47,6 +47,7 @@ class OrderHistory extends Component {
 			return (
 				<div>
 					<h3>Your Orders</h3>
+
 					{this.state.order && (
 						<div>
 							{this.state.orders.map(product => {

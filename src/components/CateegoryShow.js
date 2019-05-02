@@ -11,6 +11,7 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
+import ReactStars from "react-stars";
 import decode from "jwt-decode";
 
 const styles = theme => ({
@@ -65,7 +66,9 @@ class CategoryShow extends Component {
 		super(props);
 		this.state = {
 			category: {},
-			products: []
+			products: [],
+			reviews: [],
+			isLoad: false
 		};
 	}
 
@@ -83,6 +86,9 @@ class CategoryShow extends Component {
 					products: response.data.products
 				}));
 			});
+		axios.get("/reviews").then(response => {
+			this.setState(() => ({ reviews: response.data, isLoad: true }));
+		});
 	}
 	handleDelete = () => {
 		const confirm = window.confirm("Are You Sure");
@@ -109,6 +115,22 @@ class CategoryShow extends Component {
 			const userId = localStorage.getItem("token");
 			const decoded = decode(userId);
 			role = decoded.user_role[0];
+		}
+		let count = 0;
+		let average = 0;
+		if (this.state.reviews.length > 0) {
+			let rlength = this.state.reviews.length;
+			if (this.state.isLoad) {
+				this.state.reviews.map(review => {
+					return this.state.products.map(product => {
+						if (review.product === product._id) {
+							count += review.rating;
+							return count;
+						}
+					});
+				});
+				average = Math.round(count / rlength);
+			}
 		}
 		const { classes } = this.props;
 		return (
@@ -222,6 +244,23 @@ class CategoryShow extends Component {
 											<Typography style={{ color: "green" }}>
 												{product.category.name}
 											</Typography>
+											{this.state.isLoad &&
+												this.state.reviews.map(review => {
+													if (review.product === product._id) {
+														return (
+															<div key={review._id}>
+																<ReactStars
+																	value={average}
+																	size={14}
+																	color2={"#F50057"}
+																	edit={false}
+																/>
+															</div>
+														);
+													} else {
+														return "";
+													}
+												})}
 											<Typography>&#x20B9; {product.price}</Typography>
 										</CardContent>
 									</Card>

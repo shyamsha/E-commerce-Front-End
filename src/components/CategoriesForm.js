@@ -64,9 +64,7 @@ class CategoryForm extends Component {
 		const formData = {
 			name: this.state.name
 		};
-		const nameReg = /^([a-zA-Z]+)[0-9]*\.*[a-zA-Z0-9]+$|^[a-zA-Z]+[0-9]*$/.test(
-			this.state.name
-		);
+		const nameReg = /^[a-zA-Z0-9\s.\-]+$/.test(this.state.name);
 		if (!nameReg) {
 			this.setState(() => ({
 				nameError: "Give Proper Nameing Format",

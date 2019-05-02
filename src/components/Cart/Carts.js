@@ -56,6 +56,19 @@ class Carts extends Component {
 		if (localStorage.getItem("token")) {
 			return (
 				<div>
+					<span
+						style={{
+							fontSize: "14px",
+							float: "right",
+							textDecoration: "underline",
+							fontWeight: "bold",
+							color: "red"
+						}}
+					>
+						please hit enter after quantity change
+					</span>
+					<br />
+
 					<h4>
 						Shopping Cart-{this.state.carts.length}
 						<span
@@ -66,6 +79,7 @@ class Carts extends Component {
 							}}
 						>
 							Quantity
+							<br />
 						</span>
 					</h4>
 					{this.state.cart && (

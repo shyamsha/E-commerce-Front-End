@@ -46,7 +46,6 @@ class ProductShow extends Component {
 		const id = this.props.match.params.id;
 		axios.get(`/products/${id}`).then(response => {
 			const products = response.data;
-
 			this.setState(() => ({ products: products }));
 		});
 		axios.get("/reviews").then(response => {
@@ -132,16 +131,17 @@ class ProductShow extends Component {
 			const decoded = decode(userId);
 			role = decoded.user_role[0];
 		}
-		let rlength = this.state.reviews.length;
-
 		let count = 0;
 		let average = 0;
-		if (this.state.isload) {
-			this.state.reviews.map(review => {
-				count += review.rating;
-				return count;
-			});
-			average = Math.round(count / rlength);
+		if (this.state.reviews.length > 0) {
+			let rlength = this.state.reviews.length;
+			if (this.state.isLoad) {
+				this.state.reviews.map(review => {
+					count += review.rating;
+					return count;
+				});
+				average = Math.round(count / rlength);
+			}
 		}
 
 		return (
@@ -276,45 +276,47 @@ class ProductShow extends Component {
 						<Grid container spacing={16}>
 							<Grid item xs={12} sm container>
 								<Grid item xs container direction="column" spacing={16}>
-									<Grid item xs>
-										<Typography gutterBottom variant="h5">
-											Reviews
-										</Typography>
+									{this.state.reviews.length > 0 && (
+										<Grid item xs>
+											<Typography gutterBottom variant="h5">
+												Reviews
+											</Typography>
 
-										{this.state.reviews.map(review => {
-											if (this.state.products._id === review.product) {
-												return (
-													<div key={review._id} className={classes.root}>
-														<Grid item>
-															<Typography gutterBottom variant="subtitle1">
-																{review.title} By:
-																<span
-																	style={{
-																		color: "#F50057",
-																		textDecoration: "underline"
-																	}}
-																>
-																	{review.user.username}
-																</span>
-															</Typography>
-															<Typography>{review.body}</Typography>
+											{this.state.reviews.map(review => {
+												if (this.state.products._id === review.product) {
+													return (
+														<div key={review._id} className={classes.root}>
+															<Grid item>
+																<Typography gutterBottom variant="subtitle1">
+																	{review.title} By:
+																	<span
+																		style={{
+																			color: "#F50057",
+																			textDecoration: "underline"
+																		}}
+																	>
+																		{review.user.username}
+																	</span>
+																</Typography>
+																<Typography>{review.body}</Typography>
 
-															<ReactStars
-																value={review.rating}
-																size={24}
-																color2={"#F50057"}
-																edit={false}
-															/>
-														</Grid>
+																<ReactStars
+																	value={review.rating}
+																	size={24}
+																	color2={"#F50057"}
+																	edit={false}
+																/>
+															</Grid>
 
-														<hr />
-													</div>
-												);
-											} else {
-												return "";
-											}
-										})}
-									</Grid>
+															<hr />
+														</div>
+													);
+												} else {
+													return "";
+												}
+											})}
+										</Grid>
+									)}
 								</Grid>
 							</Grid>
 						</Grid>

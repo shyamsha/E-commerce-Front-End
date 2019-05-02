@@ -122,46 +122,21 @@ class Home extends React.Component {
 		const { classes } = this.props;
 		return (
 			<div>
-				<Typography>welcome back Monthly mall</Typography>
+				<center>
+					<Typography
+						style={{
+							color: "rgb(9, 63, 117)",
+							fontSize: "30px",
+							marginTop: "50px"
+						}}
+					>
+						site home page under construction <br />
+						sorry for the inconvenience <br />
+						we will get back soon
+					</Typography>
+				</center>
+
 				{/* <div className={classes.root}>
-					<GridList className={classes.gridList} cols={2.5}>
-						{this.state.loading && (
-							<div>
-								{this.state.products.map(tile => {
-									if (tile.price < 500) {
-										return (
-											<GridListTile key={tile._id}>
-												<img
-													src={tile.imageUrl}
-													hight="440"
-													width="480"
-													alt={tile.title}
-													cols={2}
-												/>
-												<GridListTileBar
-													title={tile.name}
-													// style={{ color: "black" }}
-													classes={{
-														root: classes.titleBar,
-														title: classes.title
-													}}
-													actionIcon={
-														<IconButton style={{ color: "red" }}>
-															{tile.price}
-														</IconButton>
-													}
-												/>
-											</GridListTile>
-										);
-									} else {
-										return "";
-									}
-								})}
-							</div>
-						)}
-					</GridList>
-				</div> */}
-				<div className={classes.root}>
 					<GridList className={classes.gridList} cols={2.5}>
 						{tileData.map(tile => (
 							<GridListTile key={tile.img}>
@@ -181,31 +156,7 @@ class Home extends React.Component {
 							</GridListTile>
 						))}
 					</GridList>
-				</div>
-				{/* {this.state.loading && (
-					<div>
-						<img src="#" alt="logo" style={{ float: "left" }} /> <br />
-						<h2>welcome back Monthly mall</h2>
-						<h6>Affordable Products</h6>
-						{this.state.products.map(product => {
-							if (product.price <= 500) {
-								return (
-									<div key={product._id}>
-										<h3>{product.name}</h3>
-										<img
-											src={product.imageUrl}
-											alt="productImg"
-											width="100"
-											hight="100"
-										/>
-									</div>
-								);
-							} else {
-								return "";
-							}
-						})}
-					</div>
-				)} */}
+				</div> */}
 			</div>
 		);
 	}

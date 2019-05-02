@@ -61,7 +61,27 @@ class Categories extends Component {
 		if (this.state.categories.length === 0) {
 			return (
 				<div>
-					<CircularProgress className={classes.progress} color="secondary" />
+					<center>
+						<CircularProgress className={classes.progress} color="secondary" />
+					</center>
+					{role === "admin" && (
+						<Button
+							variant="outlined"
+							color="secondary"
+							style={{ marginLeft: "1080px", marginTop: "5px" }}
+						>
+							<Link
+								to="categories/add"
+								style={{
+									float: "right",
+									color: "#F50057",
+									textDecoration: "none"
+								}}
+							>
+								Add Category
+							</Link>
+						</Button>
+					)}
 				</div>
 			);
 		} else {
