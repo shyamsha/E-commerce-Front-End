@@ -139,6 +139,8 @@ class ProductShow extends Component {
 					if (review.product === this.state.products._id) {
 						count += review.rating;
 						return count;
+					}else {
+						return ""
 					}
 				});
 				average = Math.round(count / rlength);

@@ -116,6 +116,8 @@ class Product extends Component {
 						if (review.product === product._id) {
 							count += review.rating;
 							return count;
+						} else {
+							return "";
 						}
 					});
 				});

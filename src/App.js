@@ -89,6 +89,7 @@ class App extends Component {
 		} else {
 			logout = true;
 		}
+		// eslint-disable-next-line no-unused-vars
 		let role = "";
 		if (localStorage.getItem("token")) {
 			const userId = localStorage.getItem("token");
