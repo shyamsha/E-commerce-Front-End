@@ -13,9 +13,9 @@
 	height: 50px;
 }
 #logo {
-	height: 100px;
+	height: 50px;
 	position: absolute;
-	top: -40px;
+	top: -5px;
 }
 #logoWrapper {
 	margin-bottom: 20px;
@@ -26,20 +26,20 @@
 #backToSchool {
 	height: 50px;
 	float: right;
-	margin-right: 20px;
+	margin-right: 10px;
 }
 #in {
-	/* vertical-align: top; */
+	/*vertical-align: top;
+	*/
 	margin-top: 20px;
 	margin-left: 14rem;
-	border-radius: 5px;
+	border-radius: 8px;
 	height: 30px;
 	width: 500px;
-
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	-ms-border-radius: 5px;
-	-o-border-radius: 5px;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	-ms-border-radius: 8px;
+	-o-border-radius: 8px;
 }
 #department {
 	font-size: 25px;
@@ -52,7 +52,7 @@
 }
 #sections {
 	display: inline-block;
-	margin-left: 5rem;
+	margin-left: 10rem;
 }
 .section {
 	display: inline-block;

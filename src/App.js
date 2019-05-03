@@ -105,9 +105,20 @@ class App extends Component {
 							<div id="logoWrapper">
 								<img
 									id="logo"
-									src="http://www.userlogos.org/files/logos/ArkAngel06/Amazon.png"
+									src="http://www.userlogos.org/files/logos/szop-gracz/masterani.png"
+									width="80px"
+									height="5px"
 									alt="logo"
-								/>
+								/>{" "}
+								<i
+									style={{
+										fontSize: "1.2rem",
+										textShadow: "4px 2px red",
+										marginLeft: "3.5rem"
+									}}
+								>
+									redPantry
+								</i>
 							</div>
 							<input
 								id="in"
@@ -116,7 +127,11 @@ class App extends Component {
 								placeholder="Search"
 								onChange={this.searchHandle}
 							/>
-							<img id="backToSchool" src="/" alt="Offer" />
+							<img
+								id="backToSchool"
+								src="http://blog.neurogistics.com/wp-content/uploads/2014/08/Back-To-School-Special-Banner.jpg"
+								alt="Offer"
+							/>
 						</div>
 
 						<div id="bottomHalf">

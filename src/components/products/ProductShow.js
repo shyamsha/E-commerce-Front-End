@@ -10,7 +10,6 @@ import ButtonBase from "@material-ui/core/ButtonBase";
 import Button from "@material-ui/core/Button";
 import ReactStars from "react-stars";
 import decode from "jwt-decode";
-import { Redirect } from "react-router-dom";
 
 const styles = theme => ({
 	root: {
@@ -135,10 +134,12 @@ class ProductShow extends Component {
 		let average = 0;
 		if (this.state.reviews.length > 0) {
 			let rlength = this.state.reviews.length;
-			if (this.state.isLoad) {
+			if (this.state.isload) {
 				this.state.reviews.map(review => {
-					count += review.rating;
-					return count;
+					if (review.product === this.state.products._id) {
+						count += review.rating;
+						return count;
+					}
 				});
 				average = Math.round(count / rlength);
 			}
@@ -169,12 +170,23 @@ class ProductShow extends Component {
 											description: {this.state.products.description}
 										</Typography>
 
-										{/* <ReactStars
+										{/* {this.state.isload &&
+											this.state.reviews.map(review => {
+												if (review.product === this.state.products._id) {
+													return ( */}
+										{/* <div key={review._id}> */}
+										<ReactStars
 											value={average}
 											size={14}
 											color2={"#F50057"}
 											edit={false}
-										/> */}
+										/>
+										{/* </div> */}
+										{/* );
+												} else {
+													return "";
+												}
+											})} */}
 
 										<Typography color="textPrimary" style={{ color: "red" }}>
 											&#x20B9; {this.state.products.price}

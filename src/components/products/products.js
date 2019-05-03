@@ -109,6 +109,7 @@ class Product extends Component {
 		let average = 0;
 		if (this.state.reviews.length > 0) {
 			let rlength = this.state.reviews.length;
+
 			if (this.state.isLoad) {
 				this.state.reviews.map(review => {
 					return this.state.products.map(product => {
@@ -257,23 +258,30 @@ class Product extends Component {
 												<Typography style={{ color: "green" }}>
 													{product.category.name}
 												</Typography>
-												{this.state.isLoad &&
+												{/* {this.state.isLoad &&
 													this.state.reviews.map(review => {
 														if (review.product === product._id) {
 															return (
-																<div key={review._id}>
-																	<ReactStars
-																		value={average}
-																		size={14}
-																		color2={"#F50057"}
-																		edit={false}
-																	/>
-																</div>
+																<div key={review._id}> */}
+												<ReactStars
+													value={average}
+													size={14}
+													color2={"#F50057"}
+													edit={false}
+												/>
+												{/* </div>
 															);
 														} else {
-															return "";
+															return (
+																<ReactStars
+																	value={0}
+																	size={14}
+																	color2={"#F50057"}
+																	edit={false}
+																/>
+															);
 														}
-													})}
+													})} */}
 
 												<Typography>&#x20B9; {product.price}</Typography>
 											</CardContent>
